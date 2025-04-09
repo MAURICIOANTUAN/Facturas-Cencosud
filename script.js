@@ -24,26 +24,13 @@ window.onload = () => {
     document.querySelector(".contenedor").style.display = "none";
   }
 
-  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfBtHKkKtdElROUoH5dVkHvQpBIo4djRsOCogOCZyqJZMNJ0vYqfc2gQW1hdU-VQx8C4X0CHRIO_6c/gviz/tq?tqx=out:json";
+  const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfBtHKkKtdElROUoH5dVkHvQpBIo4djRsOCogOCZyqJZMNJ0vYqfc2gQW1hdU-VQx8C4X0CHRIO_6c/pub?gid=0&single=true&output=csv";
 
   fetch(url)
     .then(res => res.text())
-    .then(data => {
-      const json = JSON.parse(data.match(/{.*}/s)[0]);
-      const cols = json.table.cols.map(col => col.label);
-      datosExcel = json.table.rows.map(row => {
-        const obj = {};
-        cols.forEach((col, i) => {
-          const celda = row.c[i];
-          obj[col] = celda ? celda.v : "";
-        });
-        return obj;
-      });
-
-      // ✅ Colocamos los logs después de definir todo
-      console.log("COLUMNAS DETECTADAS:", cols);
-      console.log("PRIMERA FILA:", datosExcel[0]);
-
+    .then(csv => {
+      const parsed = Papa.parse(csv, { header: true });
+      datosExcel = parsed.data.filter(row => Object.values(row).some(cell => cell !== ""));
       mostrarTabla(datosExcel);
     })
     .catch(err => {
@@ -52,45 +39,39 @@ window.onload = () => {
     });
 };
 
-function limpiarMonto(valor) {
-  if (!valor || typeof valor !== "string") return 0;
-  const limpio = valor.replace(/[^0-9\-]/g, "");
-  return parseInt(limpio) || 0;
-}
-
 function mostrarTabla(data) {
-  if (data.length === 0) return;
+  if (!data || data.length === 0) {
+    document.getElementById("tabla-facturas").innerHTML = "<tr><td colspan='100%'>No hay datos para mostrar</td></tr>";
+    return;
+  }
 
-  const encabezado = Object.keys(data[0]);
-  let html = "<tr>";
-  encabezado.forEach(col => html += `<th>${col}</th>`);
-  html += "</tr>";
+  const encabezados = Object.keys(data[0]);
 
-  for (const fila of data) {
+  let html = "<thead><tr>";
+  encabezados.forEach(enc => html += `<th>${enc}</th>`);
+  html += "</tr></thead><tbody>";
+
+  data.forEach(fila => {
     html += "<tr>";
-    encabezado.forEach(col => {
-      let valor = fila[col];
+    encabezados.forEach(enc => {
+      let valor = fila[enc];
 
-      if (col.toLowerCase().includes("fecha")) {
-        if (!isNaN(valor)) {
-          const fechaBase = new Date(1899, 11, 30);
-          const fecha = new Date(fechaBase.getTime() + valor * 86400000);
-          valor = fecha.toLocaleDateString("es-CL");
-        } else if (typeof valor === "string" && valor.toLowerCase().includes("no especifica")) {
-          valor = "No especificada";
-        }
+      if (enc.toLowerCase().includes("fecha")) {
+        const fecha = new Date(valor);
+        valor = isNaN(fecha) ? valor : fecha.toLocaleDateString("es-CL");
       }
 
-      if (col.toLowerCase().includes("monto")) {
-        const monto = limpiarMonto(valor.toString());
-        valor = `$${monto.toLocaleString("es-CL")}`;
+      if (enc.toLowerCase().includes("monto")) {
+        const numero = parseInt(valor.toString().replace(/[^0-9]/g, ""));
+        valor = isNaN(numero) ? valor : `$${numero.toLocaleString("es-CL")}`;
       }
 
       html += `<td>${valor}</td>`;
     });
     html += "</tr>";
-  }
+  });
 
+  html += "</tbody>";
   document.getElementById("tabla-facturas").innerHTML = html;
 }
 
@@ -103,18 +84,18 @@ function filtrar() {
   const mensaje = document.getElementById("mensaje");
 
   const filtrados = datosExcel.filter(fila => {
-    const tipoValor = String(fila["Tipo de transaccion (Cross-Border o Local)"] || "").trim().toLowerCase();
-    const contraparteValor = String(fila["Contraparte"] || "").trim().toLowerCase();
-    const ejercicioValor = String(fila["Ejercicio"] || "").trim();
-    const operacionValor = String(fila["Operación"] || "").trim().toLowerCase();
-    const folioValor = String(fila["Folio"] || "").trim();
+    const tipoValor = (fila["Tipo de transaccion (Cross-Border o Local)"] || "").trim().toLowerCase();
+    const contraparteValor = (fila["Contraparte"] || "").trim().toLowerCase();
+    const ejercicioValor = (fila["Ejercicio"] || "").trim();
+    const operacionValor = (fila["Operación"] || "").trim().toLowerCase();
+    const folioValor = (fila["Folio"] || "").trim();
 
     return (
-      (tipo ? tipoValor === tipo : true) &&
-      (contraparte ? contraparteValor === contraparte : true) &&
-      (ejercicio ? ejercicioValor === ejercicio : true) &&
-      (operacion ? operacionValor === operacion : true) &&
-      (folio ? folioValor === folio : true)
+      (!tipo || tipoValor === tipo) &&
+      (!contraparte || contraparteValor === contraparte) &&
+      (!ejercicio || ejercicioValor === ejercicio) &&
+      (!operacion || operacionValor === operacion) &&
+      (!folio || folioValor === folio)
     );
   });
 
@@ -150,3 +131,4 @@ function descargarExcel() {
   XLSX.utils.book_append_sheet(wb, ws, "Filtrados");
   XLSX.writeFile(wb, "Resultados_Filtrados.xlsx");
 }
+
