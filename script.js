@@ -10,20 +10,34 @@ function verificarClave() {
     login.style.display = "none";
     contenido.style.display = "block";
     sessionStorage.setItem("logueado", true);
+    cargarDatos();
   } else {
     mensaje.textContent = "⚠️ Clave incorrecta. Inténtalo de nuevo.";
   }
 }
 
+function cerrarSesion() {
+  sessionStorage.removeItem("logueado");
+  location.reload();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const claveInput = document.getElementById("clave");
+  claveInput?.addEventListener("keydown", e => {
+    if (e.key === "Enter") verificarClave();
+  });
+
+  if (sessionStorage.getItem("logueado")) {
+    document.getElementById("login").style.display = "none";
+    document.querySelector(".contenedor").style.display = "block";
+    cargarDatos();
+  }
+});
+
 let datosExcel = [];
 let resultadosFiltrados = [];
 
-window.onload = () => {
-  const loginVisible = sessionStorage.getItem("logueado");
-  if (!loginVisible) {
-    document.querySelector(".contenedor").style.display = "none";
-  }
-
+function cargarDatos() {
   const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfBtHKkKtdElROUoH5dVkHvQpBIo4djRsOCogOCZyqJZMNJ0vYqfc2gQW1hdU-VQx8C4X0CHRIO_6c/pub?gid=0&single=true&output=csv";
 
   fetch(url)
@@ -37,7 +51,7 @@ window.onload = () => {
       console.error("❌ Error al cargar la base:", err);
       document.getElementById("mensaje").textContent = "❌ No se pudo cargar la base de datos.";
     });
-};
+}
 
 function mostrarTabla(data) {
   if (!data || data.length === 0) {
