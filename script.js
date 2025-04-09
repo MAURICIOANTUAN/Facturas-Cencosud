@@ -29,10 +29,7 @@ window.onload = () => {
   fetch(url)
     .then(res => res.text())
     .then(data => {
-      const json = JSON.parse(data.match(/{.*}/s)[0]); // ✅ Cambiado para evitar error de parseo
-      console.log("COLUMNAS DETECTADAS:", cols);
-      console.log("PRIMERA FILA:", datosExcel[0]);
-
+      const json = JSON.parse(data.match(/{.*}/s)[0]);
       const cols = json.table.cols.map(col => col.label);
       datosExcel = json.table.rows.map(row => {
         const obj = {};
@@ -42,6 +39,11 @@ window.onload = () => {
         });
         return obj;
       });
+
+      // ✅ Colocamos los logs después de definir todo
+      console.log("COLUMNAS DETECTADAS:", cols);
+      console.log("PRIMERA FILA:", datosExcel[0]);
+
       mostrarTabla(datosExcel);
     })
     .catch(err => {
