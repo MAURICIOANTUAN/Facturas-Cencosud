@@ -80,6 +80,10 @@ function mostrarTabla(data) {
         valor = isNaN(numero) ? valor : `$${numero.toLocaleString("es-CL")}`;
       }
 
+      if (typeof valor === "string" && valor.startsWith("http")) {
+        valor = `<a href="${valor}" target="_blank">📎 Ver enlace</a>`;
+      }
+
       html += `<td>${valor}</td>`;
     });
     html += "</tr>";
@@ -93,16 +97,19 @@ function filtrar() {
   const tipo = document.getElementById("tipo-transaccion").value.trim().toLowerCase();
   const contraparte = document.getElementById("contraparte").value.trim().toLowerCase();
   const ejercicio = document.getElementById("filtro-anio").value.trim();
-  const operacion = document.getElementById("operacion").value.trim().normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  const operacion = document.getElementById("operacion").value.trim().toLowerCase();
   const folio = document.getElementById("folio").value.trim();
   const mensaje = document.getElementById("mensaje");
 
+  const buscarCol = (fila, nombre) =>
+    String(fila[Object.keys(fila).find(k => k.trim().toLowerCase() === nombre.toLowerCase())] || "").trim();
+
   const filtrados = datosExcel.filter(fila => {
-    const tipoValor = (fila["Tipo de transaccion (Cross-Border o Local)"] || "").trim().toLowerCase();
-    const contraparteValor = (fila["Contraparte"] || "").trim().toLowerCase();
-    const ejercicioValor = (fila["Ejercicio"] || "").trim();
-    const operacionValor = (fila["Operación"] || "").toString().normalize("NFD").replace(/[̀-ͯ]/g, "").trim().toLowerCase();
-    const folioValor = (fila["Folio"] || "").trim();
+    const tipoValor = buscarCol(fila, "Tipo de transaccion (Cross-Border o Local)").toLowerCase();
+    const contraparteValor = buscarCol(fila, "Contraparte").toLowerCase();
+    const ejercicioValor = buscarCol(fila, "Ejercicio");
+    const operacionValor = buscarCol(fila, "Operación").toLowerCase();
+    const folioValor = buscarCol(fila, "Folio");
 
     return (
       (!tipo || tipoValor === tipo) &&
@@ -145,4 +152,5 @@ function descargarExcel() {
   XLSX.utils.book_append_sheet(wb, ws, "Filtrados");
   XLSX.writeFile(wb, "Resultados_Filtrados.xlsx");
 }
+
 
