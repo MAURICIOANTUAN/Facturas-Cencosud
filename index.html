@@ -19,7 +19,7 @@
 </div>
 
 <!-- Contenido principal -->
-<div class="contenedor">
+<div class="contenedor" style="display: none;">
   <h1>Gestión de Facturas: CENCOSUD MATRIZ</h1>
 
   <div class="formulario">
@@ -81,15 +81,15 @@
     <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
 
     <p id="mensaje" class="mensaje"></p>
+
+    <!-- ✅ Cerrar sesión aquí, debajo del formulario -->
+    <button class="btn" onclick="cerrarSesion()">Cerrar sesión</button>
   </div>
 
   <br />
   <table id="tabla-facturas"></table>
-  <br />
-  <button onclick="cerrarSesion()">Cerrar sesión</button>
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
-
