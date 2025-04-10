@@ -93,23 +93,33 @@ function mostrarTabla(data) {
   document.getElementById("tabla-facturas").innerHTML = html;
 }
 
+function normalizar(texto) {
+  return String(texto || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // quita tildes
+    .trim()
+    .toLowerCase();
+}
+
+function buscarColumna(fila, nombreEsperado) {
+  const clave = Object.keys(fila).find(k => normalizar(k) === normalizar(nombreEsperado));
+  return normalizar(fila[clave]);
+}
+
 function filtrar() {
-  const tipo = document.getElementById("tipo-transaccion").value.trim().toLowerCase();
-  const contraparte = document.getElementById("contraparte").value.trim().toLowerCase();
+  const tipo = normalizar(document.getElementById("tipo-transaccion").value);
+  const contraparte = normalizar(document.getElementById("contraparte").value);
   const ejercicio = document.getElementById("filtro-anio").value.trim();
-  const operacion = document.getElementById("operacion").value.trim().toLowerCase();
+  const operacion = normalizar(document.getElementById("operacion").value);
   const folio = document.getElementById("folio").value.trim();
   const mensaje = document.getElementById("mensaje");
 
-  const buscarCol = (fila, nombre) =>
-    String(fila[Object.keys(fila).find(k => k.trim().toLowerCase() === nombre.toLowerCase())] || "").trim();
-
   const filtrados = datosExcel.filter(fila => {
-    const tipoValor = buscarCol(fila, "Tipo de transaccion (Cross-Border o Local)").toLowerCase();
-    const contraparteValor = buscarCol(fila, "Contraparte").toLowerCase();
-    const ejercicioValor = buscarCol(fila, "Ejercicio");
-    const operacionValor = buscarCol(fila, "Operación").toLowerCase();
-    const folioValor = buscarCol(fila, "Folio");
+    const tipoValor = buscarColumna(fila, "Tipo de transaccion (Cross-Border o Local)");
+    const contraparteValor = buscarColumna(fila, "Contraparte");
+    const ejercicioValor = buscarColumna(fila, "Ejercicio");
+    const operacionValor = buscarColumna(fila, "Operación");
+    const folioValor = buscarColumna(fila, "Folio");
 
     return (
       (!tipo || tipoValor === tipo) &&
