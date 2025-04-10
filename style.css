@@ -1,124 +1,135 @@
+/* GENERAL */
 body {
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-  }
-  
-  .contenedor {
-    max-width: 1000px;
-    margin: auto;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
-    min-height: 100vh;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #003366;
-  }
-  
-  .formulario {
-    background: #e6f2ff;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  .formulario h2 {
-    background-color: #003366;
-    color: white;
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-  }
-  
-  label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  
-  input, select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .btn {
-    width: 100%;
-    padding: 15px;
-    margin-top: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    background-color: #00aaff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    background-color: #008ecc;
-  }
-  
-  .mensaje {
-    margin-top: 15px;
-    font-weight: bold;
-    color: #003366;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-size: 14px;
-    overflow-x: auto;
-    display: block;
-    white-space: nowrap;
-  }
-  
-  th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  /* Login */
-  .login-box {
-    max-width: 400px;
-    margin: 80px auto;
-    padding: 30px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ccc;
-    text-align: center;
-  }
-  
-  .login-box input {
-    width: 90%;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .login-box button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    font-weight: bold;
-    background-color: #003366;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.contenedor {
+  max-width: 1000px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  color: #003366;
+}
+
+/* FORMULARIO DE FILTROS */
+.formulario {
+  background: #e6f2ff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.formulario h2 {
+  background-color: #003366;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* BOTONES */
+.btn {
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background-color: #00aaff;
+  color: white;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #008ecc;
+}
+
+/* MENSAJES */
+.mensaje {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #003366;
+}
+
+/* TABLA */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  overflow-x: auto;
+  display: block;
+  white-space: nowrap;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+/* LOGIN BOX */
+.login-box {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  text-align: center;
+}
+
+/* INPUT EN LOGIN */
+.login-box input {
+  width: 90%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* BOTÓN EN LOGIN */
+.login-box button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* LOGO */
 .logo-login {
   max-width: 200px;
   margin: 0 auto 20px;
   display: block;
 }
+
