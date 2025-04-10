@@ -11,7 +11,7 @@
 
 <!-- Login -->
 <div id="login" class="login-box">
-  <img src="cencosud-logo.png" alt="Logo Cencosud" class="logo-login" />
+  <img src="cencosud-logo.png" alt="Logo Cencosud" class="logo-login logo-pequeno" />
   <h2>Acceso restringido</h2>
   <input type="password" id="clave" placeholder="Ingresa tu clave" />
   <button onclick="verificarClave()">Ingresar</button>
@@ -20,6 +20,11 @@
 
 <!-- Contenido principal -->
 <div class="contenedor" style="display: none;">
+  <!-- Botón cerrar sesión arriba a la derecha -->
+  <div class="cerrar-sesion-container">
+    <button class="cerrar-sesion-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+  </div>
+
   <h1>Gestión de Facturas: CENCOSUD MATRIZ</h1>
 
   <div class="formulario">
@@ -81,9 +86,6 @@
     <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
 
     <p id="mensaje" class="mensaje"></p>
-
-    <!-- ✅ Cerrar sesión aquí, debajo del formulario -->
-    <button class="btn" onclick="cerrarSesion()">Cerrar sesión</button>
   </div>
 
   <br />
@@ -93,3 +95,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
