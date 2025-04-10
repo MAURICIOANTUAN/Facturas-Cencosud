@@ -80,11 +80,6 @@ function mostrarTabla(data) {
         valor = isNaN(numero) ? valor : `$${numero.toLocaleString("es-CL")}`;
       }
 
-      // Convertir links a clickeables
-      if (typeof valor === "string" && valor.startsWith("http")) {
-        valor = `<a href="${valor}" target="_blank" rel="noopener noreferrer">${valor}</a>`;
-      }
-
       html += `<td>${valor}</td>`;
     });
     html += "</tr>";
@@ -94,31 +89,20 @@ function mostrarTabla(data) {
   document.getElementById("tabla-facturas").innerHTML = html;
 }
 
-function encontrarColumna(nombreBuscado) {
-  const columnas = Object.keys(datosExcel[0] || {});
-  return columnas.find(c => c.toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "") === nombreBuscado.toLowerCase());
-}
-
 function filtrar() {
   const tipo = document.getElementById("tipo-transaccion").value.trim().toLowerCase();
   const contraparte = document.getElementById("contraparte").value.trim().toLowerCase();
   const ejercicio = document.getElementById("filtro-anio").value.trim();
-  const operacion = document.getElementById("operacion").value.trim().toLowerCase();
+  const operacion = document.getElementById("operacion").value.trim().normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
   const folio = document.getElementById("folio").value.trim();
   const mensaje = document.getElementById("mensaje");
 
-  const colTipo = encontrarColumna("Tipo de transaccion (Cross-Border o Local)");
-  const colContraparte = encontrarColumna("Contraparte");
-  const colEjercicio = encontrarColumna("Ejercicio");
-  const colOperacion = encontrarColumna("Operacion");
-  const colFolio = encontrarColumna("Folio");
-
   const filtrados = datosExcel.filter(fila => {
-    const tipoValor = (fila[colTipo] || "").trim().toLowerCase();
-    const contraparteValor = (fila[colContraparte] || "").trim().toLowerCase();
-    const ejercicioValor = (fila[colEjercicio] || "").trim();
-    const operacionValor = (fila[colOperacion] || "").trim().toLowerCase();
-    const folioValor = (fila[colFolio] || "").trim();
+    const tipoValor = (fila["Tipo de transaccion (Cross-Border o Local)"] || "").trim().toLowerCase();
+    const contraparteValor = (fila["Contraparte"] || "").trim().toLowerCase();
+    const ejercicioValor = (fila["Ejercicio"] || "").trim();
+    const operacionValor = (fila["Operación"] || "").toString().normalize("NFD").replace(/[̀-ͯ]/g, "").trim().toLowerCase();
+    const folioValor = (fila["Folio"] || "").trim();
 
     return (
       (!tipo || tipoValor === tipo) &&
