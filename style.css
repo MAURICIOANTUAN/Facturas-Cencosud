@@ -117,3 +117,8 @@ body {
     border-radius: 8px;
     cursor: pointer;
   }
+.logo-login {
+  max-width: 200px;
+  margin: 0 auto 20px;
+  display: block;
+}
