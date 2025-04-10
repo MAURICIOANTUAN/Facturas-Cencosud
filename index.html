@@ -11,84 +11,85 @@
 
 <!-- Login -->
 <div id="login" class="login-box">
-  <img src="img/cencosud-logo.png" alt="Logo Cencosud" class="logo-login" />
+  <img src="cencosud-logo.png" alt="Logo Cencosud" class="logo-login" />
   <h2>Acceso restringido</h2>
   <input type="password" id="clave" placeholder="Ingresa tu clave" />
   <button onclick="verificarClave()">Ingresar</button>
   <p id="mensaje-login" class="mensaje"></p>
 </div>
 
-  <!-- Contenido principal -->
-  <div class="contenedor" style="display: none;">
-    <h1>Gestión de Facturas: CENCOSUD MATRIZ</h1>
+<!-- Contenido principal -->
+<div class="contenedor">
+  <h1>Gestión de Facturas: CENCOSUD MATRIZ</h1>
 
-    <div class="formulario">
-      <h2>Selecciona tu búsqueda</h2>
+  <div class="formulario">
+    <h2>Selecciona tu búsqueda</h2>
 
-      <label>Tipo de transacción</label>
-      <select id="tipo-transaccion">
-        <option value="">-- Selecciona --</option>
-        <option>Crossborder</option>
-        <option>Local (Chile)</option>
-      </select>
+    <label>Tipo de transacción</label>
+    <select id="tipo-transaccion">
+      <option value="">-- Selecciona --</option>
+      <option>Crossborder</option>
+      <option>Local (Chile)</option>
+    </select>
 
-      <label>Contraparte</label>
-      <select id="contraparte">
-        <option value="">-- Selecciona --</option>
-        <option>CENCOSUD RETAIL S.A</option>
-        <option>CENCOSUD SHOPPING S.A</option>
-        <option>EASY RETAIL S.A</option>
-        <option>CENCOSUD FIDELIDAD S.A</option>
-        <option>CAT ADMINISTRADORA DE TARJETAS S.A</option>
-        <option>CAT CORREDORES DE SEGUROS Y SERVICIOS SA</option>
-        <option>ADMINISTRADORA Y PROCESOS S.A</option>
-        <option>SERVICIOS INTEGRALES S.A</option>
-        <option>CENCOTECH SA</option>
-        <option>CENCOSUD S.A (Argentina)</option>
-        <option>CENCOSUD URUGUAY SERVICIOS S.A</option>
-        <option>Aldany S.A (Uruguay)</option>
-        <option>CENCOSUD PERU S.A</option>
-        <option>CENCOSUD RETAIL PERU S.A</option>
-        <option>CENCOSUD BRASIL COMERCIAL S.A</option>
-        <option>CENCOSUD COLOMBIA S.A</option>
-        <option>CENCOSUD SHANGAI</option>
-      </select>
+    <label>Contraparte</label>
+    <select id="contraparte">
+      <option value="">-- Selecciona --</option>
+      <option>CENCOSUD RETAIL S.A</option>
+      <option>CENCOSUD SHOPPING S.A</option>
+      <option>EASY RETAIL S.A</option>
+      <option>CENCOSUD FIDELIDAD S.A</option>
+      <option>CAT ADMINISTRADORA DE TARJETAS S.A</option>
+      <option>CAT CORREDORES DE SEGUROS Y SERVICIOS SA</option>
+      <option>ADMINISTRADORA Y PROCESOS S.A</option>
+      <option>SERVICIOS INTEGRALES S.A</option>
+      <option>CENCOTECH SA</option>
+      <option>CENCOSUD S.A (Argentina)</option>
+      <option>CENCOSUD URUGUAY SERVICIOS S.A</option>
+      <option>Aldany S.A (Uruguay)</option>
+      <option>CENCOSUD PERU S.A</option>
+      <option>CENCOSUD RETAIL PERU S.A</option>
+      <option>CENCOSUD BRASIL COMERCIAL S.A</option>
+      <option>CENCOSUD COLOMBIA S.A</option>
+      <option>CENCOSUD SHANGAI</option>
+    </select>
 
-      <label>Ejercicio</label>
-      <select id="filtro-anio">
-        <option value="">-- Selecciona --</option>
-        <option>2022</option>
-        <option>2023</option>
-        <option>2024</option>
-        <option>2025</option>
-        <option>2026</option>
-      </select>
+    <label>Ejercicio</label>
+    <select id="filtro-anio">
+      <option value="">-- Selecciona --</option>
+      <option>2022</option>
+      <option>2023</option>
+      <option>2024</option>
+      <option>2025</option>
+      <option>2026</option>
+    </select>
 
-      <label>Operación</label>
-      <select id="operacion">
-        <option value="">-- Selecciona --</option>
-        <option>Financiamiento</option>
-        <option>Servicio</option>
-        <option>Refacturacion</option>
-      </select>
+    <label>Operación</label>
+    <select id="operacion">
+      <option value="">-- Selecciona --</option>
+      <option>Financiamiento</option>
+      <option>Servicio</option>
+      <option>Refacturacion</option>
+    </select>
 
-      <label>Folio</label>
-      <input type="text" id="folio" placeholder="Ej: 12345" />
+    <label>Folio</label>
+    <input type="text" id="folio" placeholder="Ej: 12345" />
 
-      <br /><br />
-      <button class="btn" onclick="filtrar()">EJECUTAR</button>
-      <button class="btn" onclick="limpiarFiltro()">RESTABLECER BASE DE DATOS</button>
-      <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
+    <br /><br />
+    <button class="btn" onclick="filtrar()">EJECUTAR</button>
+    <button class="btn" onclick="limpiarFiltro()">RESTABLECER BASE DE DATOS</button>
+    <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
 
-      <p id="mensaje" class="mensaje"></p>
-    </div>
-
-    <br />
-    <table id="tabla-facturas"></table>
-    <br />
-    <button onclick="cerrarSesion()">Cerrar sesión</button>
+    <p id="mensaje" class="mensaje"></p>
   </div>
 
-  <script src="script.js"></script>
+  <br />
+  <table id="tabla-facturas"></table>
+  <br />
+  <button onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
+
