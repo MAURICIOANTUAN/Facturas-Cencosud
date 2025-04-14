@@ -68,6 +68,7 @@ select {
   background-color: #00aaff;
   color: white;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn:hover {
@@ -142,62 +143,21 @@ td {
   margin-bottom: 15px;
 }
 
-.cerrar-sesion-btn {
-  padding: 6px 12px;
-  font-size: 14px;
-  background-color: #e0e0e0;
-  color: #333;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.volver-container {
+  flex: 1;
+  text-align: left;
 }
 
-.volver-btn:hover,
-.cerrar-sesion-btn:hover {
-  background-color: #d0d0d0;
+.cerrar-sesion-container {
+  flex: 1;
+  text-align: right;
 }
 
-/* Opciones en la página de selección */
-.opciones {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
-}
-
-.opcion-btn {
-   width: 100%;
-  padding: 15px;
-  margin-top: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  border: 2px solid #008ecc;
-  border-radius: 10px;
-  background-color: white;
-  color: #008ecc;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  text-align: center;
-}
-
-.btn:hover {
-  background-color: #008ecc;
-  color: white;
-}
-.flecha-icono {
-  margin-right: 8px;
-  vertical-align: middle;
-  transition: transform 0.3s ease;
-}
-
-.volver-btn:hover .flecha-icono {
-  transform: translateX(-4px);
-}
 .volver-btn {
   padding: 10px 20px;
   font-size: 14px;
   font-weight: bold;
-  background-color: #003366;
+  background-color: #00aaff;
   color: white;
   border: none;
   border-radius: 8px;
@@ -208,7 +168,7 @@ td {
 }
 
 .volver-btn:hover {
-  background-color: #005588;
+  background-color: #008ecc;
 }
 
 .flecha-icono {
@@ -220,5 +180,31 @@ td {
 .volver-btn:hover .flecha-icono {
   transform: translateX(-4px);
 }
+
+/* Página de selección de base */
+.opciones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.opcion-btn {
+  padding: 20px 40px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  background-color: #003366;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+}
+
+.opcion-btn:hover {
+  background-color: #005588;
+}
+
 
 
