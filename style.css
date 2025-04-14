@@ -167,20 +167,23 @@ td {
 }
 
 .opcion-btn {
-  padding: 20px 40px;
-  font-size: 18px;
+   width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 16px;
   font-weight: bold;
-  border: none;
-  border-radius: 12px;
-  background-color: #003366;
-  color: white;
+  border: 2px solid #008ecc;
+  border-radius: 10px;
+  background-color: white;
+  color: #008ecc;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
 }
 
-.opcion-btn:hover {
-  background-color: #005588;
+.btn:hover {
+  background-color: #008ecc;
+  color: white;
 }
 .flecha-icono {
   margin-right: 8px;
