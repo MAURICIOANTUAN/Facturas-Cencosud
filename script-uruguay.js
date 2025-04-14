@@ -5,28 +5,11 @@ let resultadosUruguay = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   if (sessionStorage.getItem("logueado")) {
-    document.getElementById("login").style.display = "none";
-    document.querySelector(".contenedor").style.display = "block";
-    cargarDatosUruguay();
-  }
-});
-
-function verificarClaveUruguay() {
-  const clave = document.getElementById("clave").value.trim();
-  if (clave === "cencosud123") {
-    sessionStorage.setItem("logueado-uruguay", true);
-    document.getElementById("login").style.display = "none";
-    document.querySelector(".contenedor").style.display = "block";
     cargarDatosUruguay();
   } else {
-    document.getElementById("mensaje-login").textContent = "⚠️ Clave incorrecta.";
+    window.location.href = "index.html";
   }
-}
-
-function cerrarSesionUruguay() {
-  sessionStorage.removeItem("logueado");
-  location.reload();
-}
+});
 
 function cargarDatosUruguay() {
   fetch(URL_URUGUAY)
@@ -38,6 +21,7 @@ function cargarDatosUruguay() {
     })
     .catch(err => {
       console.error("❌ Error al cargar datos Uruguay:", err);
+      document.getElementById("mensaje").textContent = "No se pudo cargar la base de datos.";
     });
 }
 
@@ -69,7 +53,7 @@ function mostrarTablaUruguay(data) {
       }
 
       if (typeof valor === "string" && valor.endsWith(".pdf")) {
-        valor = `<a href="https://drive.google.com/file/d/${valor}" target="_blank">📎 Ver PDF</a>`;
+        valor = `<a href="${valor}" target="_blank">📎 Ver PDF</a>`;
       }
 
       html += `<td>${valor}</td>`;
@@ -122,4 +106,5 @@ function descargarExcelUruguay() {
   XLSX.utils.book_append_sheet(wb, ws, "Uruguay");
   XLSX.writeFile(wb, "Facturas_Uruguay.xlsx");
 }
+
 
