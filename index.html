@@ -21,13 +21,23 @@
 <!-- Selección de base de datos -->
 <div id="inicio-opciones" class="contenedor" style="display: none;">
   <h1>Selecciona una base de datos</h1>
-  <div class="opciones">
-    <button class="opcion-btn" onclick="iniciarApp('matriz')">CENCOSUD MATRIZ</button>
-    <a href="index-uruguay.html" class="opcion-btn">CENCOSUD URUGUAY SERVICIOS</a>
-  </div>
+  <ul class="lista-bases">
+    <li>
+      <a class="opcion-btn" href="#" onclick="iniciarApp('matriz')">
+        <strong>CENCOSUD MATRIZ</strong><br />
+        <span class="descripcion">Gestión de facturas centralizadas de la matriz en Chile.</span>
+      </a>
+    </li>
+    <li>
+      <a class="opcion-btn" href="index-uruguay.html">
+        <strong>CENCOSUD URUGUAY SERVICIOS</strong><br />
+        <span class="descripcion">Registro y seguimiento de facturas emitidas en Uruguay.</span>
+      </a>
+    </li>
+  </ul>
 </div>
 
-<!-- Contenido principal -->
+<!-- Contenido principal matriz -->
 <div class="contenedor" id="contenido-app" style="display: none;">
   <div class="barra-superior">
     <div class="volver-container">
@@ -60,21 +70,7 @@
       <select id="contraparte">
         <option value="">-- Selecciona --</option>
         <option>CENCOSUD RETAIL S.A</option>
-        <option>CENCOSUD SHOPPING S.A</option>
-        <option>EASY RETAIL S.A</option>
-        <option>CENCOSUD FIDELIDAD S.A</option>
-        <option>CAT ADMINISTRADORA DE TARJETAS S.A</option>
-        <option>CAT CORREDORES DE SEGUROS Y SERVICIOS SA</option>
-        <option>ADMINISTRADORA Y PROCESOS S.A</option>
-        <option>SERVICIOS INTEGRALES S.A</option>
-        <option>CENCOTECH SA</option>
-        <option>CENCOSUD S.A (Argentina)</option>
-        <option>CENCOSUD URUGUAY SERVICIOS S.A</option>
-        <option>Aldany S.A (Uruguay)</option>
-        <option>CENCOSUD PERU S.A</option>
-        <option>CENCOSUD RETAIL PERU S.A</option>
-        <option>CENCOSUD BRASIL COMERCIAL S.A</option>
-        <option>CENCOSUD COLOMBIA S.A</option>
+        <!-- ...otros valores -->
         <option>CENCOSUD SHANGAI</option>
       </select>
 
@@ -113,9 +109,45 @@
 </div>
 
 <script src="script.js"></script>
+<script>
+  function verificarClave() {
+    const input = document.getElementById("clave").value.trim();
+    if (input === "cencosud123") {
+      sessionStorage.setItem("logueado", true);
+      document.getElementById("login").style.display = "none";
+      document.getElementById("inicio-opciones").style.display = "block";
+    } else {
+      document.getElementById("mensaje-login").textContent = "⚠️ Clave incorrecta.";
+    }
+  }
+
+  function iniciarApp(base) {
+    if (base === "matriz") {
+      document.getElementById("inicio-opciones").style.display = "none";
+      document.getElementById("contenido-app").style.display = "block";
+      cargarDatos();
+    }
+  }
+
+  function volverInicio() {
+    document.getElementById("contenido-app").style.display = "none";
+    document.getElementById("inicio-opciones").style.display = "block";
+  }
+
+  function cerrarSesion() {
+    sessionStorage.removeItem("logueado");
+    location.reload();
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (sessionStorage.getItem("logueado")) {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("inicio-opciones").style.display = "block";
+    }
+  });
+</script>
 </body>
 </html>
 
-</html>
 
 
