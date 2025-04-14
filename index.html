@@ -108,46 +108,11 @@
   <table id="tabla-facturas"></table>
 </div>
 
+<!-- Carga lógica general (verifica sesión, carga scripts, etc.) -->
 <script src="script.js"></script>
-<script>
-  function verificarClave() {
-    const input = document.getElementById("clave").value.trim();
-    if (input === "cencosud123") {
-      sessionStorage.setItem("logueado", true);
-      document.getElementById("login").style.display = "none";
-      document.getElementById("inicio-opciones").style.display = "block";
-    } else {
-      document.getElementById("mensaje-login").textContent = "⚠️ Clave incorrecta.";
-    }
-  }
-
-  function iniciarApp(base) {
-    if (base === "matriz") {
-      document.getElementById("inicio-opciones").style.display = "none";
-      document.getElementById("contenido-app").style.display = "block";
-      cargarDatos();
-    }
-  }
-
-  function volverInicio() {
-    document.getElementById("contenido-app").style.display = "none";
-    document.getElementById("inicio-opciones").style.display = "block";
-  }
-
-  function cerrarSesion() {
-    sessionStorage.removeItem("logueado");
-    location.reload();
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    if (sessionStorage.getItem("logueado")) {
-      document.getElementById("login").style.display = "none";
-      document.getElementById("inicio-opciones").style.display = "block";
-    }
-  });
-</script>
 </body>
 </html>
+
 
 
 
