@@ -9,17 +9,17 @@
 </head>
 <body>
 
-<!-- Login -->
-<div id="login" class="login-box">
-  <img src="cencosud-logo.png" alt="Logo Cencosud" class="logo-login logo-pequeno" />
-  <h2>Acceso restringido</h2>
-  <input type="password" id="clave" placeholder="Ingresa tu clave" />
-  <button onclick="verificarClaveUruguay()">Ingresar</button>
-  <p id="mensaje-login" class="mensaje"></p>
-</div>
+<!-- Verificación de sesión -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "index.html";
+    }
+  });
+</script>
 
 <!-- Contenido principal -->
-<div class="contenedor" style="display: none;">
+<div class="contenedor">
   <div class="barra-superior">
     <div class="volver-container">
       <button class="volver-btn" onclick="window.location.href='index.html'">
@@ -93,12 +93,12 @@
 </div>
 
 <script src="script-uruguay.js"></script>
-</body>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    if (!sessionStorage.getItem("logueado")) {
-      window.location.href = "index.html";
-    }
-  });
+<script>
+  function cerrarSesionUruguay() {
+    sessionStorage.removeItem("logueado");
+    window.location.href = "index.html";
+  }
 </script>
+</body>
 </html>
+
