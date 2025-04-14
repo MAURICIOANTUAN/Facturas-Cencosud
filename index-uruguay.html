@@ -94,4 +94,11 @@
 
 <script src="script-uruguay.js"></script>
 </body>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "index.html";
+    }
+  });
+</script>
 </html>
