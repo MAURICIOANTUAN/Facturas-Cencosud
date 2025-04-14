@@ -142,7 +142,6 @@ td {
   margin-bottom: 15px;
 }
 
-.volver-btn,
 .cerrar-sesion-btn {
   padding: 6px 12px;
   font-size: 14px;
@@ -185,6 +184,33 @@ td {
   background-color: #008ecc;
   color: white;
 }
+.flecha-icono {
+  margin-right: 8px;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+}
+
+.volver-btn:hover .flecha-icono {
+  transform: translateX(-4px);
+}
+.volver-btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #003366;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.volver-btn:hover {
+  background-color: #005588;
+}
+
 .flecha-icono {
   margin-right: 8px;
   vertical-align: middle;
