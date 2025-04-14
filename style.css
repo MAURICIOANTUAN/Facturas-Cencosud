@@ -205,6 +205,39 @@ td {
 .opcion-btn:hover {
   background-color: #005588;
 }
+.lista-bases {
+  list-style: none;
+  padding: 0;
+}
+
+.lista-bases li {
+  margin-bottom: 20px;
+}
+
+.opcion-btn {
+  display: block;
+  background-color: #003366;
+  color: white;
+  text-align: left;
+  padding: 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease;
+}
+
+.opcion-btn:hover {
+  background-color: #005588;
+}
+
+.opcion-btn .descripcion {
+  font-weight: normal;
+  font-size: 14px;
+  display: block;
+  margin-top: 6px;
+}
 
 
 
