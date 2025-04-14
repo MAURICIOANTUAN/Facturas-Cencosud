@@ -51,6 +51,12 @@ select {
   border-radius: 5px;
 }
 
+.campos-filtro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .btn {
   width: 100%;
   padding: 15px;
@@ -128,12 +134,15 @@ td {
   display: block;
 }
 
-/* Botón cerrar sesión arriba */
-.cerrar-sesion-container {
-  text-align: right;
-  margin-bottom: 10px;
+/* Barra superior */
+.barra-superior {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
+.volver-btn,
 .cerrar-sesion-btn {
   padding: 6px 12px;
   font-size: 14px;
@@ -144,9 +153,12 @@ td {
   cursor: pointer;
 }
 
+.volver-btn:hover,
 .cerrar-sesion-btn:hover {
   background-color: #d0d0d0;
 }
+
+/* Opciones en la página de selección */
 .opciones {
   display: flex;
   justify-content: center;
@@ -170,22 +182,14 @@ td {
 .opcion-btn:hover {
   background-color: #005588;
 }
-.volver-container {
-  text-align: left;
-  margin-bottom: 10px;
+.flecha-icono {
+  margin-right: 8px;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
 }
 
-.volver-btn {
-  padding: 6px 12px;
-  font-size: 14px;
-  background-color: #e0e0e0;
-  color: #333;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.volver-btn:hover .flecha-icono {
+  transform: translateX(-4px);
 }
 
-.volver-btn:hover {
-  background-color: #d0d0d0;
-}
 
