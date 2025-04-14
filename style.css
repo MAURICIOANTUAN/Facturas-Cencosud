@@ -170,4 +170,22 @@ td {
 .opcion-btn:hover {
   background-color: #005588;
 }
+.volver-container {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.volver-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.volver-btn:hover {
+  background-color: #d0d0d0;
+}
 
