@@ -173,5 +173,12 @@ function descargarExcel() {
   XLSX.writeFile(wb, "Resultados_Filtrados.xlsx");
 }
 
+function volverInicio() {
+  document.getElementById("contenido-app").style.display = "none";
+  document.getElementById("inicio-opciones").style.display = "block";
+  document.getElementById("tabla-facturas").innerHTML = "";
+  document.getElementById("mensaje").textContent = "";
+  baseSeleccionada = "";
+}
 
 
