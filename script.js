@@ -5,7 +5,8 @@ let baseSeleccionada = "";
 
 const URLS = {
   matriz: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfBtHKkKtdElROUoH5dVkHvQpBIo4djRsOCogOCZyqJZMNJ0vYqfc2gQW1hdU-VQx8C4X0CHRIO_6c/pub?gid=0&single=true&output=csv",
-  uruguay: "https://docs.google.com/spreadsheets/d/e/2PACX-1vT_LA-TU-LINK-URUGUAY-EJEMPLO/pub?gid=0&single=true&output=csv"
+  uruguay: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfBtHKkKtdElROUoH5dVkHvQpBIo4djRsOCogOCZyqJZMNJ0vYqfc2gQW1hdU-VQx8C4X0CHRIO_6c/pub?gid=428418421&single=true&output=csv"
+
 };
 
 function verificarClave() {
