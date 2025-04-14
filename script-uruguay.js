@@ -4,7 +4,7 @@ let datosUruguay = [];
 let resultadosUruguay = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (sessionStorage.getItem("logueado-uruguay")) {
+  if (sessionStorage.getItem("logueado")) {
     document.getElementById("login").style.display = "none";
     document.querySelector(".contenedor").style.display = "block";
     cargarDatosUruguay();
@@ -24,7 +24,7 @@ function verificarClaveUruguay() {
 }
 
 function cerrarSesionUruguay() {
-  sessionStorage.removeItem("logueado-uruguay");
+  sessionStorage.removeItem("logueado");
   location.reload();
 }
 
