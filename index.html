@@ -18,14 +18,22 @@
   <p id="mensaje-login" class="mensaje"></p>
 </div>
 
+<!-- Selección de base de datos -->
+<div id="inicio-opciones" class="contenedor" style="display: none;">
+  <h1>Selecciona una base de datos</h1>
+  <div class="opciones">
+    <button class="opcion-btn" onclick="iniciarApp('matriz')">CENCOSUD MATRIZ</button>
+    <button class="opcion-btn" onclick="iniciarApp('uruguay')">CENCOSUD URUGUAY SERVICIOS</button>
+  </div>
+</div>
+
 <!-- Contenido principal -->
-<div class="contenedor" style="display: none;">
-  <!-- Botón cerrar sesión arriba a la derecha -->
+<div class="contenedor" id="contenido-app" style="display: none;">
   <div class="cerrar-sesion-container">
     <button class="cerrar-sesion-btn" onclick="cerrarSesion()">Cerrar sesión</button>
   </div>
 
-  <h1>Gestión de Facturas: CENCOSUD MATRIZ</h1>
+  <h1 id="titulo-app">Gestión de Facturas</h1>
 
   <div class="formulario">
     <h2>Selecciona tu búsqueda</h2>
