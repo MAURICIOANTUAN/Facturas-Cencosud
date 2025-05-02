@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Facturas - Cencosud Matriz</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+  <script>
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <div class="contenedor" id="contenido-app">
+    <div class="barra-superior">
+      <div class="volver-container">
+        <button class="volver-btn" onclick="window.location.href='facturas.html'">
+          <svg xmlns="http://www.w3.org/2000/svg" class="flecha-icono" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          Volver a selección
+        </button>
+      </div>
+      <div class="cerrar-sesion-container">
+        <button class="cerrar-sesion-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <h1 id="titulo-app">Gestión de Facturas: CENCOSUD MATRIZ</h1>
+
+    <div class="formulario">
+      <h2>Selecciona tu búsqueda</h2>
+
+      <div class="campos-filtro">
+        <label>Tipo de transacción</label>
+        <select id="tipo-transaccion">
+          <option value="">-- Selecciona --</option>
+          <option>Crossborder</option>
+          <option>Local (Chile)</option>
+        </select>
+
+        <label>Contraparte</label>
+        <select id="contraparte">
+          <option value="">-- Selecciona --</option>
+        </select>
+
+        <label>Ejercicio</label>
+        <select id="filtro-anio">
+          <option value="">-- Selecciona --</option>
+          <option>2022</option>
+          <option>2023</option>
+          <option>2024</option>
+          <option>2025</option>
+          <option>2026</option>
+        </select>
+
+        <label>Operación</label>
+        <select id="operacion">
+          <option value="">-- Selecciona --</option>
+          <option>Financiamiento</option>
+          <option>Servicio</option>
+          <option>Refacturacion</option>
+        </select>
+
+        <label>Folio</label>
+        <input type="text" id="folio" placeholder="Ej: 12345" />
+      </div>
+
+      <br />
+      <button class="btn" onclick="filtrar()">EJECUTAR FILTRO</button>
+      <button class="btn" onclick="limpiarFiltro()">RESTABLECER BASE DE DATOS</button>
+      <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
+
+      <p id="mensaje" class="mensaje"></p>
+    </div>
+
+    <br />
+    <table id="tabla-facturas"></table>
+  </div>
+
+  <script src="script.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof iniciarApp === "function") {
+        iniciarApp("matriz");
+      }
+    });
+  </script>
+  </body>
+  
+</html>
