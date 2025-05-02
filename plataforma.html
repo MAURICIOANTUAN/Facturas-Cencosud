@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma de Gestión - Cencosud</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      background-color: #283593;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 40px auto;
+      gap: 30px;
+      max-width: 1000px;
+    }
+
+    .tarjeta {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 280px;
+      text-align: center;
+      padding: 30px 20px;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .tarjeta:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .icono {
+      font-size: 50px;
+      color: #283593;
+      margin-bottom: 15px;
+    }
+
+    .titulo {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .descripcion {
+      font-size: 14px;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 60px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <script>
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "inicio.html";
+    }
+  </script>
+
+  <header>Plataforma de Gestión Cencosud</header>
+
+  <div class="contenedor">
+    <a href="index.html" class="tarjeta">
+      <div class="icono"><i class="fas fa-file-invoice-dollar"></i></div>
+      <div class="titulo">Facturas Intercompañía</div>
+      <div class="descripcion">Ver base de datos de facturación entre sociedades (Matriz).</div>
+    </a>
+
+    <a href="contratos-precio-transferencia.html" class="tarjeta">
+      <div class="icono"><i class="fas fa-file-contract"></i></div>
+      <div class="titulo">Contratos y Base de Cálculo</div>
+      <div class="descripcion">Accede a documentos soporte para precios de transferencia.</div>
+    </a>
+  </div>
+
+  <footer>© 2025 Cencosud - Plataforma Interna</footer>
+</body>
+</html>
