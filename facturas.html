@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Seleccionar base de facturas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #283593;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 22px;
+    }
+
+    .contenedor {
+      max-width: 600px;
+      margin: 60px auto;
+      background-color: white;
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: #283593;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background-color: #3949ab;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #303f9f;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <header>Facturas Intercompañía</header>
+
+  <div class="contenedor">
+    <h2>Selecciona una base sobre las facturas intercompañía</h2>
+    <button onclick="iniciarApp('matriz')">Cencosud Matriz</button>
+    <button onclick="iniciarApp('uruguay')">Cencosud Uruguay</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
