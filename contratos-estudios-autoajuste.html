@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contratos y Estudios de Autoajuste</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script-autoajuste.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <img src="img/logo-cencosud.png" alt="Logo Cencosud" class="logo">
+        <h1>Contratos y Estudios de Autoajuste</h1>
+        <div class="nav-buttons">
+            <button onclick="window.history.back()">← Volver a la selección</button>
+            <button onclick="location.href='plataforma.html'">Volver al Menú Principal</button>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="filter-section">
+            <label for="contraparte">Contraparte:</label>
+            <select id="contraparte"><option value="">-- Todas --</option></select>
+            <label for="ejercicio">Ejercicio:</label>
+            <select id="ejercicio"><option value="">-- Todos --</option></select>
+            <button onclick="filtrarDatos()">Ejecutar Filtro</button>
+            <button onclick="restablecerFiltro()">Restablecer</button>
+        </div>
+        <div class="table-container">
+            <table id="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Contraparte</th>
+                        <th>Concepto</th>
+                        <th>Ejercicio</th>
+                        <th>Contrato (Anexo)</th>
+                        <th>Estudio auditoría (Anexo)</th>
+                        <th>Anexos</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>
