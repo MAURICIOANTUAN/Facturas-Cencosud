@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contratos y Estudios de Autoajuste</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+  <header style="background-color: #003087; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
+    <a href="javascript:window.history.back()" style="
+        background-color: white;
+        color: #003087;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 14px;
+        text-decoration: none;
+    ">← Volver a la selección</a>
+
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+      <h2 style="margin: 0; font-size: 24px; text-align: center;">Contratos y Estudios de Autoajuste</h2>
+    </div>
+
+    <a href="plataforma.html" style="
+        background-color: white;
+        color: #003087;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 14px;
+        text-decoration: none;
+    ">Volver al Menú Principal</a>
+  </header>
+
+  <div class="contenedor" id="contenido-app">
+    <div class="barra-superior">
+      <div class="cerrar-sesion-container">
+        <button class="cerrar-sesion-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <h1 id="titulo-app">Gestión de Contratos y Estudios</h1>
+
+    <div class="formulario">
+      <h2 style="margin: 0; font-size: 24px; text-align: center;">Selecciona tu búsqueda</h2>
+
+      <div class="campos-filtro">
+        <label>Contraparte</label>
+        <select id="contraparte">
+          <option value="">-- Selecciona --</option>
+        </select>
+
+        <label>Ejercicio</label>
+        <select id="ejercicio">
+          <option value="">-- Selecciona --</option>
+        </select>
+
+        <label>Concepto</label>
+        <select id="concepto">
+          <option value="">-- Selecciona --</option>
+        </select>
+      </div>
+
+      <br />
+      <button class="btn" onclick="filtrar()">EJECUTAR FILTRO</button>
+      <button class="btn" onclick="restablecer()">RESTABLECER BASE DE DATOS</button>
+      <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
+
+      <p id="mensaje" class="mensaje"></p>
+    </div>
+
+    <br />
+    <table id="tabla-datos"></table>
+  </div>
+
+  <script src="script-autoajuste.js"></script>
+</body>
+</html>
