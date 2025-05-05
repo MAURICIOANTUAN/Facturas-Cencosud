@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Plataforma de Gestión Cencosud</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    header {
+      background-color: #1a237e;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .contenedor {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+
+    .tarjeta {
+      background-color: white;
+      border-radius: 20px;
+      padding: 30px 20px;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .tarjeta i {
+      font-size: 48px;
+      color: #1a237e;
+      margin-bottom: 15px;
+    }
+
+    .titulo {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .descripcion {
+      font-size: 14px;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: #999;
+      font-size: 13px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    
+
+<header style="background-color: #003087; color: white; padding: 10px 20px; display: flex; align-items: center; justify-content: center; position: relative;">
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+        <h2 style="margin: 0; font-size: 24px;">Gestión de plataformas Cencosud</h2>
+    </div>
+    <button onclick="sessionStorage.clear(); window.location.href='index.html'" style="
+        position: absolute;
+        right: 20px;
+        background-color: white;
+        color: #003087;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+    ">Cerrar sesión</button>
+</header>
+
+
+    
+
+    
+    
+
+    
+    
+  <script>
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  
+
+  <div class="contenedor">
+    <a href="facturas.html" class="tarjeta">
+      <i class="fas fa-file-invoice-dollar"></i>
+      <div class="titulo">Facturas Intercompañía</div>
+      <div class="descripcion">Ver base de datos de facturas de Cencosud (Matriz y Uruguay).</div>
+    </a>
+
+    <a href="contratos-precio-transferencia.html" class="tarjeta">
+      <i class="fas fa-file-signature"></i>
+      <div class="titulo">Contratos y Base de Cálculo</div>
+      <div class="descripcion">Revisa contratos y soportes para precios de transferencia.</div>
+    </a>
+  </div>
+
+  <footer>© 2025 Cencosud - Plataforma Interna</footer>
+</body>
+</html>

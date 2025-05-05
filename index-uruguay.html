@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Facturas - Cencosud Uruguay</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+</head>
+<body>
+
+    
+    
+    
+    
+    <header style="background-color: #003087; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="javascript:window.history.back()" style="
+            background-color: white;
+            color: #003087;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+        ">← Volver a la selección</a>
+
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+            <h2 style="margin: 0; font-size: 24px; text-align: center;">Facturas Uruguay</h2>
+        </div>
+
+        <a href="plataforma.html" style="
+            background-color: white;
+            color: #003087;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+        ">Volver al Menú Principal</a>
+    </header>
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+
+<!-- Verificación de sesión -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "index.html";
+    }
+  });
+</script>
+
+<!-- Contenido principal -->
+<div class="contenedor">
+  <div class="barra-superior">
+    
+    <div class="cerrar-sesion-container">
+      <button class="cerrar-sesion-btn" onclick="cerrarSesionUruguay()">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <h1>Gestión de Facturas: CENCOSUD URUGUAY</h1>
+
+  <div class="formulario">
+    <h2 style="margin: 0; font-size: 24px; text-align: center;">Selecciona tu búsqueda</h2>
+
+    <div class="campos-filtro">
+      <label>Contraparte</label>
+      <select id="contraparte">
+        <option value="">-- Selecciona --</option>
+        <option>CENCOSUD COLOMBIA S.A</option>
+        <option>CENCOSUD FIDELIDAD S.A</option>
+        <option>CENCOSUD RETAIL PERU S.A</option>
+        <option>CENCOSUD RETAIL S.A</option>
+        <option>CENCOSUD S.A</option>
+        <option>EASY RETAIL S.A</option>
+        <option>VICENZI S.P.A.</option>
+      </select>
+
+      <label>Ejercicio</label>
+      <select id="filtro-anio">
+        <option value="">-- Selecciona --</option>
+        <option>2022</option>
+        <option>2023</option>
+        <option>2024</option>
+        <option>2025</option>
+        <option>2026</option>
+      </select>
+
+      <label>Tipo</label>
+      <select id="tipo-transaccion">
+        <option value="">-- Selecciona --</option>
+        <option>Cobro</option>
+        <option>Pago</option>
+      </select>
+
+      <label>Operación</label>
+      <select id="operacion">
+        <option value="">-- Selecciona --</option>
+        <option>Cencommerce</option>
+        <option>Procurement</option>
+      </select>
+
+      <label>E ticket (opcional)</label>
+      <input type="text" id="folio" placeholder="Ej: e-Ticket A 23" />
+    </div>
+
+    <br />
+    <button class="btn" onclick="filtrarUruguay()">EJECUTAR FILTRO</button>
+    <button class="btn" onclick="limpiarFiltroUruguay()">RESTABLECER BASE DE DATOS</button>
+    <button class="btn" onclick="descargarExcelUruguay()">DESCARGAR RESULTADOS</button>
+
+    <p id="mensaje" class="mensaje"></p>
+  </div>
+
+  <br />
+  <table id="tabla-facturas"></table>
+</div>
+
+<script src="script-uruguay.js"></script>
+<script>
+  function cerrarSesionUruguay() {
+    sessionStorage.removeItem("logueado");
+    window.location.href = "index.html";
+  }
+</script>
+</body>
+</html>
+
