@@ -4,73 +4,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Autoajuste Intercompany</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #f3f3f3;
       margin: 0;
-      padding: 0;
     }
+
     header {
-      background-color: #003a70;
+      background-color: #003087;
       color: white;
-      padding: 1rem 2rem;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     header h1 {
-      font-size: 1.8rem;
-      margin: 0 auto;
+      margin: 0;
+      font-size: 24px;
       text-align: center;
       flex: 1;
     }
+
     .btn-volver {
       background-color: white;
       color: #003087;
       font-weight: bold;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 14px;
       text-decoration: none;
-      font-size: 0.9rem;
     }
-    .btn-volver:hover {
-      background-color: #f1f1f1;
+
+    .contenedor {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
     }
-    .btn-container {
+
+    .opcion {
+      background-color: white;
+      padding: 30px 25px;
+      width: 260px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       text-align: center;
-      margin: 2rem;
     }
-    .btn {
-      background-color: #003087;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      margin: 0 10px;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
+
+    .opcion:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
     }
-    .btn:hover {
-      background-color: #00509d;
+
+    .opcion i {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #1a237e;
+    }
+
+    .titulo {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .descripcion {
+      font-size: 14px;
+      color: #666;
     }
   </style>
 </head>
 <body>
+
   <header>
     <a href="plataforma.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al menú</a>
     <h1>Autoajuste Intercompany</h1>
     <div style="width: 130px;"></div>
   </header>
 
-  <div class="btn-container">
-    <button class="btn" onclick="window.location.href='contratos-estudios-autoajuste.html'">
-      <i class="fas fa-file-contract"></i> Contratos y Estudios
-    </button>
-    <button class="btn" onclick="window.location.href='base-calculo-autoajuste.html'">
-      <i class="fas fa-calculator"></i> Base de Cálculo
-    </button>
+  <div class="contenedor">
+    <a href="contratos-estudios-autoajuste.html" class="opcion">
+      <i class="fas fa-file-contract"></i>
+      <div class="titulo">Contratos y Estudios</div>
+      <div class="descripcion">Documentos y respaldos legales.</div>
+    </a>
+
+    <a href="base-calculo-autoajuste.html" class="opcion">
+      <i class="fas fa-calculator"></i>
+      <div class="titulo">Base de Cálculo</div>
+      <div class="descripcion">Hoja de cálculo para ajustes.</div>
+    </a>
   </div>
+
 </body>
 </html>
