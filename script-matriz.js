@@ -52,7 +52,7 @@ function mostrarTabla(data) {
     valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida por CENCOSUD MATRIZ a ${contraparte}</a>`;
   }
 } else if (col.trim() === "Contrato") {
-  if (valor && valor.includes("contra")) {
+  if (valor && valor.includes("file")) {
     const contraparte = fila["Contraparte"];
     valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato firmado con ${contraparte}</a>`;
   }
