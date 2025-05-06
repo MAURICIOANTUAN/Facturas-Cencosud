@@ -89,7 +89,7 @@ function poblarContrapartes(data) {
 }
 
 function filtrar() {
-  const tipo = normalizar(document.getElementById("tipo-transaccion (Cross-Border o Local").value);
+  const tipo = normalizar(document.getElementById("tipo-transaccion (Cross-Border o Local)").value);
   const contraparte = normalizar(document.getElementById("contraparte").value);
   const anio = normalizar(document.getElementById("filtro-anio").value);
   const operacion = normalizar(document.getElementById("operacion").value);
