@@ -52,12 +52,12 @@ function mostrarTabla(data) {
     valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida por CENCOSUD MATRIZ a ${contraparte}</a>`;
   }
 } else if (col.trim() === "Contrato") {
-  if (valor && valor.startsWith("http")) {
+  if (valor && valor.includes("contra")) {
     const contraparte = fila["Contraparte"];
     valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato firmado con ${contraparte}</a>`;
   }
 } else if (col.trim() === "Estudio de precios") {
-  if (valor && valor.startsWith("http")) {
+  if (valor && valor.includes("Anexo")) {
     const contraparte = fila["Contraparte"];
     valor = `<a href="${valor}" target="_blank" style="color:#003087;">Estudio de precios para ${contraparte}</a>`;
   }
