@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Total contratos Intercompañia</title>
+  <title>Total contratos Intercompañía</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   <style>
@@ -96,6 +96,12 @@
     th {
       background-color: #003087;
       color: white;
+    }
+
+    /* Aumentar ancho de columnas específicas */
+    td:nth-child(6), /* Contrato */
+    td:nth-child(7)  /* Estudio auditora */ {
+      min-width: 220px;
     }
   </style>
 </head>
@@ -209,29 +215,30 @@
       const tr = document.createElement("tr");
       encabezados.forEach(col => {
         const td = document.createElement("td");
-        if (col.trim() === "Contrato (Anexo)" && row[col]) {
+        const valor = row[col];
+        if (col.trim() === "Contrato (Anexo)" && valor) {
           const enlace = document.createElement("a");
-          enlace.href = row[col];
+          enlace.href = valor;
           enlace.textContent = "Contrato " + (row["Contraparte "] || "");
           enlace.target = "_blank";
           enlace.style.color = "#003087";
           td.appendChild(enlace);
-        } else if (col.trim() === "Estudio auditora (Anexo)" && row[col]) {
+        } else if (col.trim() === "Estudio auditora (Anexo)" && valor) {
           const enlace = document.createElement("a");
-          enlace.href = row[col];
+          enlace.href = valor;
           enlace.textContent = "Estudio MP KPMG 2024";
           enlace.target = "_blank";
           enlace.style.color = "#003087";
           td.appendChild(enlace);
-        } else if (col.trim() === "Anexos " && row[col]) {
+        } else if (col.trim().toLowerCase().includes("anexo") && valor) {
           const enlace = document.createElement("a");
-          enlace.href = row[col];
+          enlace.href = valor;
           enlace.textContent = "Anexo";
           enlace.target = "_blank";
           enlace.style.color = "#003087";
           td.appendChild(enlace);
         } else {
-          td.textContent = row[col];
+          td.textContent = valor;
         }
         tr.appendChild(td);
       });
@@ -252,5 +259,3 @@
 
 </body>
 </html>
-
-
