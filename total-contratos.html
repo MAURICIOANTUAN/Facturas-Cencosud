@@ -229,7 +229,9 @@
           enlace.target = "_blank";
           enlace.style.color = "#003087";
           td.appendChild(enlace);
-        } else if (col.trim() === "Anexos " && row[col]) {
+          } else {
+            td.textContent = "NO EXISTE";
+        } if (col.trim() === "Anexos" && row[col]) {
           const enlace = document.createElement("a");
           enlace.href = row[col];
           enlace.textContent = "Anexo";
