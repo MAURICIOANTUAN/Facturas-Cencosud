@@ -42,6 +42,7 @@ function mostrarTablaUruguay(data) {
     columnas.forEach(col => {
       let valor = fila[col];
       const contraparte = fila["Contraparte"];
+      const eticket = fila["E ticket"];
 
       // Fecha
       if (col.toLowerCase().includes("fecha")) {
