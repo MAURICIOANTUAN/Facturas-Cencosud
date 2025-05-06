@@ -24,6 +24,7 @@ function cargarDatosUruguay() {
       document.getElementById("mensaje").textContent = "No se pudo cargar la base de datos.";
     });
 }
+
 function mostrarTablaUruguay(data) {
   const tabla = document.getElementById("tabla-facturas");
   if (!data.length) {
@@ -42,53 +43,21 @@ function mostrarTablaUruguay(data) {
       let valor = fila[col];
       const contraparte = fila["Contraparte"];
 
-      // Fecha en formato local
+      // Fecha
       if (col.toLowerCase().includes("fecha")) {
         const fecha = new Date(valor);
         valor = isNaN(fecha) ? valor : fecha.toLocaleDateString("es-CL");
       }
 
-      // Monto (USD) con separador CL y "USD"
+      // Monto (USD)
       if (col.trim() === "Monto (USD)") {
         const num = parseFloat(valor.toString().replace(/\./g, "").replace(",", "."));
         valor = isNaN(num) ? valor : `${num.toLocaleString("es-CL")} USD`;
       }
 
-      // Link → convertir en enlace
+      // Link personalizado si es URL
       if (col.trim() === "Link" && valor && valor.includes("http")) {
         valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida por CENCOSUD URUGUAY a ${contraparte}</a>`;
-      }
-
-      html += `<td>${valor}</td>`;
-    });
-    html += "</tr>";
-  });
-
-  html += "</tbody>";
-  tabla.innerHTML = html;
-}
-  const columnas = Object.keys(data[0]);
-  let html = "<thead><tr>";
-  columnas.forEach(c => html += `<th>${c}</th>`);
-  html += "</tr></thead><tbody>";
-
-  data.forEach(fila => {
-    html += "<tr>";
-    columnas.forEach(col => {
-      let valor = fila[col];
-
-      if (col.toLowerCase().includes("fecha")) {
-        const fecha = new Date(valor);
-        valor = isNaN(fecha) ? valor : fecha.toLocaleDateString("es-CL");
-      }
-
-      if (col.toLowerCase().includes("monto")) {
-        const num = parseFloat(valor.toString().replace(/[^0-9.,]/g, "").replace(",", ""));
-        valor = isNaN(num) ? valor : `$${num.toLocaleString("es-CL")}`;
-      }
-
-      if (typeof valor === "string" && valor.endsWith(".pdf")) {
-        valor = `<a href="${valor}" target="_blank">📎 Ver PDF</a>`;
       }
 
       html += `<td>${valor}</td>`;
@@ -141,5 +110,6 @@ function descargarExcelUruguay() {
   XLSX.utils.book_append_sheet(wb, ws, "Uruguay");
   XLSX.writeFile(wb, "Facturas_Uruguay.xlsx");
 }
+
 
 
