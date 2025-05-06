@@ -201,7 +201,7 @@
         if (col.trim() === "Monto (CLP)") {
           td.textContent = "CLP " + (row[col] || "");
         } else if (col.trim() === "Monto (USD)") {
-          td.textContent = "USD" + (row[col] || "");
+          td.textContent = "USD " + (row[col] || "");
         } else if (col.trim() === "Monto (COP/SOL/ARS)") {
           let moneda = "";
           if (contraparte.includes("COLOMBIA")) moneda = "COP";
