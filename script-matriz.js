@@ -42,10 +42,35 @@ function mostrarTabla(data) {
         const fecha = new Date(valor);
         valor = isNaN(fecha) ? valor : fecha.toLocaleDateString("es-CL");
       }
-      if (col.toLowerCase().includes("monto")) {
-        const num = parseFloat(valor.toString().replace(/[^0-9.,]/g, "").replace(",", ""));
-        valor = isNaN(num) ? valor : `$${num.toLocaleString("es-CL")}`;
-      }
+      if (col.trim() === "Monto (CLP)") {
+  const num = parseFloat(valor.toString().replace(/[^0-9.,]/g, "").replace(",", ""));
+  valor = isNaN(num) ? valor : `${num.toLocaleString("es-CL")} CLP`;
+
+} else if (col.trim() === "Monto (USD)") {
+  const num = parseFloat(valor.toString().replace(/[^0-9.,]/g, "").replace(",", ""));
+  valor = isNaN(num) ? valor : `${num.toLocaleString("es-CL")} USD`;
+}
+      if (col.trim() === "Factura") {
+  if (valor && valor.startsWith("http")) {
+    const contraparte = fila["Contraparte"];
+    valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida por CENCOSUD MATRIZ a ${contraparte}</a>`;
+  }
+}
+
+if (col.trim() === "Contrato") {
+  if (valor && valor.startsWith("http")) {
+    const contraparte = fila["Contraparte"];
+    valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato ${contraparte}</a>`;
+  }
+}
+
+if (col.trim() === "Estudio de precios") {
+  if (valor && valor.startsWith("http")) {
+    const contraparte = fila["Contraparte"];
+    valor = `<a href="${valor}" target="_blank" style="color:#003087;">Estudio de precios ${contraparte}</a>`;
+  }
+}
+
       if (typeof valor === "string" && valor.endsWith(".pdf")) {
         valor = `<a href="${valor}" target="_blank">📎 Ver PDF</a>`;
       }
