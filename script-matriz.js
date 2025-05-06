@@ -38,17 +38,14 @@ function mostrarTabla(data) {
     html += "<tr>";
     columnas.forEach(col => {
       let valor = fila[col];
-      if (col.toLowerCase().includes("fecha")) {
-        const fecha = new Date(valor);
-        valor = isNaN(fecha) ? valor : fecha.toLocaleDateString("es-CL");
-      }
-      if (col.toLowerCase().includes("monto")) {
-        const num = parseFloat(valor.toString().replace(/[^0-9.,]/g, "").replace(",", ""));
-        valor = isNaN(num) ? valor : `$${num.toLocaleString("es-CL")}`;
-      }
-      if (typeof valor === "string" && valor.endsWith(".pdf")) {
-        valor = `<a href="${valor}" target="_blank">📎 Ver PDF</a>`;
-      }
+      if (col.trim() === "Monto (CLP)") {
+  const num = parseFloat(valor.toString().replace(/\./g, "").replace(",", "."));
+  valor = isNaN(num) ? valor : `CLP ${num.toLocaleString("es-CL")}`;
+
+} else if (col.trim() === "Monto (USD)") {
+  const num = parseFloat(valor.toString().replace(/\./g, "").replace(",", "."));
+  valor = isNaN(num) ? valor : `USD ${num.toLocaleString("es-CL")}`;
+}
       html += `<td>${valor}</td>`;
     });
     html += "</tr>";
