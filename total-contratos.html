@@ -224,7 +224,7 @@
     enlace.style.color = "#003087";
     td.appendChild(enlace);
   } else {
-    td.textContent = "NO EXISTE";
+    td.innerHTML = "<span style='color: red; font-weight: bold;'>NO EXISTE</span>";
   }
 } else if (col.trim() === "Estudio auditora") {
   if (row[col] && row[col].startsWith("http")) {
