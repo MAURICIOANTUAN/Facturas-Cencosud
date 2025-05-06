@@ -215,30 +215,38 @@
       const tr = document.createElement("tr");
       encabezados.forEach(col => {
         const td = document.createElement("td");
-        if (col.trim() === "Contrato" && row[col]) {
-          const enlace = document.createElement("a");
-          enlace.href = row[col];
-          enlace.textContent = "Contrato " + (row["Contraparte "] || "");
-          enlace.target = "_blank";
-          enlace.style.color = "#003087";
-          td.appendChild(enlace);
-        } else if (col.trim() === "Estudio auditora" && row[col]) {
-          const enlace = document.createElement("a");
-          enlace.href = row[col];
-          enlace.textContent = "Estudio MP KPMG 2024";
-          enlace.target = "_blank";
-          enlace.style.color = "#003087";
-          td.appendChild(enlace);
-        } else if (col.trim() === "Anexos " && row[col]) {
-          const enlace = document.createElement("a");
-          enlace.href = row[col];
-          enlace.textContent = "Anexo";
-          enlace.target = "_blank";
-          enlace.style.color = "#003087";
-          td.appendChild(enlace);
-        } else {
-          td.textContent = row[col];
-        }
+        if (col.trim() === "Contrato") {
+  if (row[col] && row[col].startsWith("http")) {
+    const enlace = document.createElement("a");
+    enlace.href = row[col];
+    enlace.textContent = "Contrato " + (row["Contraparte "] || "");
+    enlace.target = "_blank";
+    enlace.style.color = "#003087";
+    td.appendChild(enlace);
+  } else {
+    td.textContent = "NO EXISTE";
+  }
+} else if (col.trim() === "Estudio auditora") {
+  if (row[col] && row[col].startsWith("http")) {
+    const enlace = document.createElement("a");
+    enlace.href = row[col];
+    enlace.textContent = "Estudio MP KPMG 2024";
+    enlace.target = "_blank";
+    enlace.style.color = "#003087";
+    td.appendChild(enlace);
+  } else {
+    td.textContent = "NO EXISTE";
+  }
+} else if (col.trim() === "Anexos" && row[col] && row[col].startsWith("http")) {
+  const enlace = document.createElement("a");
+  enlace.href = row[col];
+  enlace.textContent = "Anexo";
+  enlace.target = "_blank";
+  enlace.style.color = "#003087";
+  td.appendChild(enlace);
+} else {
+  td.textContent = row[col] ?? "";
+}
         tr.appendChild(td);
       });
       tbody.appendChild(tr);
