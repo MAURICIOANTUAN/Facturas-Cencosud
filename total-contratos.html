@@ -126,7 +126,7 @@
   let datosOriginales = [];
 
   document.addEventListener("DOMContentLoaded", () => {
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vS-urAZjllNC2T_Y5QK8SGwXHZ5KZwc1yxCOirfGqyaC0Tmyag92lKziYHHXoifB6Tibx6IfHC6QRVP/pub?gid=0&single=true&output=csv", {
+    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vR-556aDcEKi6pMEHoK3KzKvci8Q9HOcxXGSIuY2skkuamM86nUGN8mzlaBOVyl1_ymRBUbTMNYakEy/pub?gid=0&single=true&output=csv", {
       download: true,
       header: true,
       complete: function(results) {
@@ -143,9 +143,9 @@
     const conceptoSet = new Set();
 
     datosOriginales.forEach(row => {
-      contraparteSet.add(row["Contraparte "]);
-      ejercicioSet.add(row["Ejercicio "]);
-      conceptoSet.add(row["Concepto "]);
+      contraparteSet.add(row["Contraparte "] ?? "");
+      ejercicioSet.add(row["Ejercicio "] ?? "");
+      conceptoSet.add(row["Concepto "] ?? "");
     });
 
     llenarSelect("filtro-contraparte", contraparteSet);
@@ -229,3 +229,4 @@
 
 </body>
 </html>
+
