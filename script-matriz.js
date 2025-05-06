@@ -89,14 +89,14 @@ function poblarContrapartes(data) {
 }
 
 function filtrar() {
-  const tipo = normalizar(document.getElementById("tipo de transaccion (Cross-Border o Local)").value);
+  const tipo = normalizar(document.getElementById("tipo-transaccion").value);
   const contraparte = normalizar(document.getElementById("contraparte").value);
   const anio = normalizar(document.getElementById("filtro-anio").value);
   const operacion = normalizar(document.getElementById("operacion").value);
   const folio = normalizar(document.getElementById("folio").value);
 
   resultadosFiltrados = datosExcel.filter(f => {
-    const matchTipo = buscarColumna(f, "tipo").includes(tipo);
+    const matchTipo = buscarColumna(f, "tipo de transaccion (Cross-Border o Local)").includes(tipo);
     const matchContraparte = buscarColumna(f, "contraparte").includes(contraparte);
     const matchAnio = buscarColumna(f, "ejercicio").includes(anio);
     const matchOperacion = buscarColumna(f, "operacion").includes(operacion);
