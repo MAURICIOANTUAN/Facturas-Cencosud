@@ -44,11 +44,11 @@ function mostrarTabla(data) {
       }
       if (col.trim() === "Monto (CLP)") {
   const num = parseFloat(valor.toString().replace(/[^0-9.,]/g, "").replace(",", ""));
-  valor = isNaN(num) ? valor : `${num.toLocaleString("es-CL")} CLP`;
+  valor = isNaN(num) ? valor : `CLP ${num.toLocaleString("es-CL")}`;
 
 } else if (col.trim() === "Monto (USD)") {
   const num = parseFloat(valor.toString().replace(/[^0-9.,]/g, "").replace(",", ""));
-  valor = isNaN(num) ? valor : `${num.toLocaleString("es-CL")} USD`;
+  valor = isNaN(num) ? valor : `USD ${num.toLocaleString("es-CL")}`;
 }
       if (col.trim() === "Factura") {
   if (valor && valor.startsWith("http")) {
