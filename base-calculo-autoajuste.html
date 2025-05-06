@@ -198,15 +198,15 @@
         const td = document.createElement("td");
         const contraparte = row["Contraparte "] || "";
 
-        if (col.trim() === "Monto CLP") {
+        if (col.trim() === "Monto (CLP)") {
           td.textContent = "CLP " + (row[col] || "");
-        } else if (col.trim() === "Monto USD") {
+        } else if (col.trim() === "Monto (USD)") {
           td.textContent = (row[col] || "") + " USD";
-        } else if (col.trim() === "Monto COP/SOL/ARS") {
+        } else if (col.trim() === "Monto (COP/SOL/ARS)") {
           let moneda = "";
-          if (contraparte.includes("Colombia")) moneda = "COP";
-          else if (contraparte.includes("Perú")) moneda = "SOL";
-          else if (contraparte.includes("Argentina")) moneda = "ARS";
+          if (contraparte.includes("COLOMBIA")) moneda = "COP";
+          else if (contraparte.includes("PERU")) moneda = "SOL";
+          else if (contraparte.includes("ARGENTINA")) moneda = "ARS";
           td.textContent = moneda ? `${moneda} ${row[col] || ""}` : row[col] || "";
         } else if (col.trim() === "Base cálculo Autoajuste") {
           if (row[col] && row[col].startsWith("http")) {
