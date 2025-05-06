@@ -201,30 +201,30 @@
         if (col.trim() === "Monto (CLP)") {
           td.textContent = "CLP " + (row[col] || "");
         } else if (col.trim() === "Monto (USD)") {
-          td.textContent = (row[col] || "") + " USD";
+          td.textContent = "USD" + (row[col] || "");
         } else if (col.trim() === "Monto (COP/SOL/ARS)") {
           let moneda = "";
           if (contraparte.includes("COLOMBIA")) moneda = "COP";
           else if (contraparte.includes("PERU")) moneda = "SOL";
           else if (contraparte.includes("ARGENTINA")) moneda = "ARS";
           td.textContent = moneda ? `${moneda} ${row[col] || ""}` : row[col] || "";
-        } else if (col.trim() === "Base cálculo Autoajuste") {
+        } else if (col.trim() === "Base de calculo autoajuste") {
           if (row[col] && row[col].startsWith("http")) {
             const a = document.createElement("a");
             a.href = row[col];
             a.target = "_blank";
-            a.textContent = "Base de cálculo autoajuste " + contraparte;
+            a.textContent = "Base de calculo autoajuste" + contraparte;
             a.style.color = "#003087";
             td.appendChild(a);
           } else {
             td.textContent = "";
           }
-        } else if (col.trim() === "Ordenanza Autoajuste") {
+        } else if (col.trim() === "Ordenanza autoajuste") {
           if (row[col] && row[col].startsWith("http")) {
             const a = document.createElement("a");
             a.href = row[col];
             a.target = "_blank";
-            a.textContent = "Ordenanza autoajuste " + contraparte;
+            a.textContent = "Ordenanza autoajuste" + contraparte;
             a.style.color = "#003087";
             td.appendChild(a);
           } else {
