@@ -60,24 +60,16 @@ function mostrarTabla(data) {
 if (col.trim() === "Contrato") {
   if (valor && valor.startsWith("http")) {
     const contraparte = fila["Contraparte"];
-    valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato ${contraparte}</a>`;
+    valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato emitido por CENCOSUD MATRIZ a ${contraparte}</a>`;
   }
 }
 
 if (col.trim() === "Estudio de precios") {
   if (valor && valor.startsWith("http")) {
     const contraparte = fila["Contraparte"];
-    valor = `<a href="${valor}" target="_blank" style="color:#003087;">Estudio de precios ${contraparte}</a>`;
+    valor = `<a href="${valor}" target="_blank" style="color:#003087;">Estudio de precios para ${contraparte}</a>`;
   }
 }
-
-      if (typeof valor === "string" && valor.endsWith(".pdf")) {
-        valor = `<a href="${valor}" target="_blank">📎 Ver PDF</a>`;
-      }
-      html += `<td>${valor}</td>`;
-    });
-    html += "</tr>";
-  });
 
   html += "</tbody>";
   tabla.innerHTML = html;
