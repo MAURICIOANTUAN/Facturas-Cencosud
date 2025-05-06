@@ -58,7 +58,7 @@ function mostrarTablaUruguay(data) {
 
       // Link personalizado si es URL
       if (col.trim() === "Link" && valor && valor.includes("http")) {
-        valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida por CENCOSUD URUGUAY a ${contraparte} (E-ticket: ${eticket})</a>`;
+        valor = `<a href="${valor}" target="_blank" style="color:#003087;">Accede a las facturas y busca la factura con folio:(E-ticket: ${eticket})</a>`;
       }
 
       html += `<td>${valor}</td>`;
