@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Facturas Matriz - Cencosud</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .mensaje-filtro {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .mensaje-filtro.mostrar {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header class="encabezado">
+    <a href="inicio.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al Menú Principal</a>
+    <div class="titulo-contenedor">
+      <img src="cencosud-logo.png" alt="Logo" class="logo">
+      <h1>Base de datos facturas Matriz</h1>
+    </div>
+    <div style="width: 160px;"></div>
+  </header>
+
+  <div class="contenedor">
+    <div class="filtros">
+      <select id="tipo-transaccion">
+        <option value="">Tipo de transacción</option>
+        <option value="Local (Chile)">Local (Chile)</option>
+        <option value="Crossborder">Crossborder</option>
+      </select>
+
+      <select id="contraparte">
+        <option value="">Contraparte</option>
+      </select>
+
+      <select id="ejercicio">
+        <option value="">Ejercicio</option>
+      </select>
+
+      <select id="concepto">
+        <option value="">Concepto</option>
+      </select>
+
+      <button id="btn-filtrar">Filtrar</button>
+      <button id="btn-restablecer">Restablecer</button>
+      <button id="btn-descargar">Descargar Excel</button>
+    </div>
+
+    <div id="mensaje-filtro" class="mensaje-filtro"></div>
+
+    <div class="tabla-contenedor">
+      <table id="tabla-datos"></table>
+    </div>
+  </div>
+
+  <script src="script-matriz-actualizado.js"></script>
+  <script>
+    const mensajeFiltro = document.getElementById("mensaje-filtro");
+
+    function mostrarMensaje(texto, tipo = "exito") {
+      mensajeFiltro.textContent = texto;
+      mensajeFiltro.style.color = tipo === "exito" ? "green" : "red";
+      mensajeFiltro.classList.add("mostrar");
+      setTimeout(() => {
+        mensajeFiltro.classList.remove("mostrar");
+      }, 3000);
+    }
+
+    // Reemplazar o envolver función original filtrar
+    const originalFiltrar = window.filtrar;
+    window.filtrar = function() {
+      if (originalFiltrar) originalFiltrar();
+      const tabla = document.getElementById("tabla-datos");
+      if (tabla && tabla.rows.length <= 1) {
+        mostrarMensaje("No hay resultados de búsqueda", "error");
+      } else {
+        mostrarMensaje("Filtro ejecutado exitosamente", "exito");
+      }
+    };
+
+    document.getElementById("btn-restablecer").addEventListener("click", () => {
+      mensajeFiltro.textContent = "";
+      mensajeFiltro.classList.remove("mostrar");
+    });
+  </script>
+</body>
+</html>
