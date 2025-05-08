@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Base de Cálculo - Autoajuste</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .btn {
+      background-color: white;
+      color: #003087;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #f1f1f1;
+    }
+    header {
+      background-color: #003087;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+    .filtros {
+      max-width: 1200px;
+      margin: 2rem auto 1rem;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    select, button {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background-color: #003087;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0052cc;
+    }
+    .contenedor {
+      max-width: 1200px;
+      margin: 1rem auto 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px 16px;
+      text-align: left;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+    tr {
+      line-height: 1.6;
+    }
+    th {
+      background-color: #003087;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="autoajuste-intercompany.html" class="btn"><i class="fas fa-arrow-left"></i> Volver atrás</a>
+  <div style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px;">
+    <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+    <h1 style="margin: 0; font-size: 24px;">Base de Cálculo - Autoajuste</h1>
+  </div>
+  <a href="plataforma.html" class="btn">Volver al Menú Principal</a>
+</header>
+
+<div class="filtros">
+  <select id="filtro-contraparte"><option value="">Contraparte</option></select>
+  <select id="filtro-ejercicio"><option value="">Ejercicio</option></select>
+  <select id="filtro-concepto"><option value="">Concepto</option></select>
+  <button onclick="filtrar()">Filtrar</button>
+  <button onclick="restablecer()">Restablecer</button>
+  <button onclick="descargarExcel()">Descargar Excel</button>
+</div>
+
+<div class="contenedor">
+  <table id="tabla-datos"></table>
+</div>
+
+<script>
+
+  let datosOriginales = [];
+
+  document.addEventListener("DOMContentLoaded", () => {
+    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vS-urAZjllNC2T_Y5QK8SGwXHZ5KZwc1yxCOirfGqyaC0Tmyag92lKziYHHXoifB6Tibx6IfHC6QRVP/pub?gid=537074106&single=true&output=csv", {
+      download: true,
+      header: true,
+      complete: function(results) {
+        datosOriginales = results.data;
+        cargarFiltros();
+        mostrarTabla(datosOriginales);
+      }
+    });
+  });
+
+  function cargarFiltros() {
+    const contraparteSet = new Set();
+    const ejercicioSet = new Set();
+    const conceptoSet = new Set();
+    datosOriginales.forEach(row => {
+      contraparteSet.add(row["Contraparte "] ?? "");
+      ejercicioSet.add(row["Ejercicio "] ?? "");
+      conceptoSet.add(row["Concepto "] ?? "");
+    });
+    llenarSelect("filtro-contraparte", contraparteSet);
+    llenarSelect("filtro-ejercicio", ejercicioSet);
+    llenarSelect("filtro-concepto", conceptoSet);
+  }
+
+  function llenarSelect(id, valores) {
+    const select = document.getElementById(id);
+    Array.from(valores).sort().forEach(valor => {
+      const option = document.createElement("option");
+      option.value = valor;
+      option.textContent = valor;
+      select.appendChild(option);
+    });
+  }
+
+  function filtrar() {
+    const f1 = document.getElementById("filtro-contraparte").value;
+    const f2 = document.getElementById("filtro-ejercicio").value;
+    const f3 = document.getElementById("filtro-concepto").value;
+    const filtrados = datosOriginales.filter(row => {
+      return (!f1 || row["Contraparte "] === f1) &&
+             (!f2 || row["Ejercicio "] === f2) &&
+             (!f3 || row["Concepto "] === f3);
+    });
+    mostrarTabla(filtrados);
+  }
+
+  function restablecer() {
+    document.getElementById("filtro-contraparte").value = "";
+    document.getElementById("filtro-ejercicio").value = "";
+    document.getElementById("filtro-concepto").value = "";
+    mostrarTabla(datosOriginales);
+  }
+
+  function mostrarTabla(datos) {
+    const tabla = document.getElementById("tabla-datos");
+    tabla.innerHTML = "";
+    if (datos.length === 0) {
+      tabla.innerHTML = "<tr><td colspan='100%'>No hay datos para mostrar.</td></tr>";
+      return;
+    }
+    const encabezados = Object.keys(datos[0]);
+    const thead = document.createElement("thead");
+    const trHead = document.createElement("tr");
+    encabezados.forEach(col => {
+      const th = document.createElement("th");
+      th.textContent = col.trim();
+      trHead.appendChild(th);
+    });
+    thead.appendChild(trHead);
+    tabla.appendChild(thead);
+
+    const tbody = document.createElement("tbody");
+    datos.forEach(row => {
+      const tr = document.createElement("tr");
+      encabezados.forEach((col, idx) => {
+        const td = document.createElement("td");
+        const contraparte = row["Contraparte "] || "";
+
+        if (col.trim() === "Monto (CLP)") {
+          td.textContent = "CLP " + (row[col] || "");
+        } else if (col.trim() === "Monto (USD)") {
+          td.textContent = "USD " + (row[col] || "");
+        } else if (col.trim() === "Monto (COP/SOL/ARS)") {
+          let moneda = "";
+          if (contraparte.includes("COLOMBIA")) moneda = "COP";
+          else if (contraparte.includes("PERU")) moneda = "SOL";
+          else if (contraparte.includes("ARGENTINA")) moneda = "ARS";
+          td.textContent = moneda ? `${moneda} ${row[col] || ""}` : row[col] || "";
+        } else if (col.trim() === "Base de calculo autoajuste") {
+          if (row[col] && row[col].startsWith("http")) {
+            const a = document.createElement("a");
+            a.href = row[col];
+            a.target = "_blank";
+            a.textContent = "Base de calculo autoajuste " + contraparte;
+            a.style.color = "#003087";
+            td.appendChild(a);
+          } else {
+            td.textContent = "";
+          }
+        } else if (col.trim() === "Ordenanza autoajuste") {
+          if (row[col] && row[col].startsWith("http")) {
+            const a = document.createElement("a");
+            a.href = row[col];
+            a.target = "_blank";
+            a.textContent = "Ordenanza autoajuste" + contraparte;
+            a.style.color = "#003087";
+            td.appendChild(a);
+          } else {
+            td.textContent = "";
+          }
+        } else {
+          td.textContent = row[col] ?? "";
+        }
+
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    tabla.appendChild(tbody);
+  }
+
+  function descargarExcel() {
+    const csv = Papa.unparse(datosOriginales);
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "base_calculo_autoajuste.csv";
+    link.click();
+  }
+</script></body></html>
