@@ -98,12 +98,14 @@ document.addEventListener("DOMContentLoaded", () => {
     header: true,
     complete: function(results) {
       datosOriginales = results.data.map(row => {
-        const cleanedRow = {};
-        Object.keys(row).forEach(key => {
-          cleanedRow[key.trim()] = row[key];
-        });
-        return cleanedRow;
-      });
+  const cleanedRow = {};
+  Object.keys(row).forEach(key => {
+    const cleanKey = key.trim();
+    const value = row[key];
+    cleanedRow[cleanKey] = typeof value === "string" ? value.trim() : value;
+  });
+  return cleanedRow;
+});
       mostrarTabla(datosOriginales);
     }
   });
