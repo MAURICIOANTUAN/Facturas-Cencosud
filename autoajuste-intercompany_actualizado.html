@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión Autoajustes Intercompañía</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+    }
+
+    .btn-volver {
+      background-color: white;
+      color: #003087;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    header {
+      background-color: #003087;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .contenedor {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .opcion {
+      background-color: white;
+      padding: 30px 25px;
+      width: 260px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
+    }
+
+    .opcion:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .opcion i {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #1a237e;
+    }
+
+    .titulo {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .descripcion {
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Botón izquierdo -->
+    <a href="plataforma.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al Menú Principal</a>
+
+    <!-- Título centrado con logo -->
+    <div style="
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    ">
+      <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+      <h1 style="margin: 0; font-size: 24px;">Gestión Autoajustes Intercompañía</h1>
+    </div>
+
+    <!-- Espacio invisible -->
+    <div style="width: 170px;"></div>
+  </header>
+
+  <div class="contenedor">
+    <a href="contratos-estudios-autoajuste.html" class="opcion">
+      <i class="fas fa-file-contract"></i>
+      <div class="titulo">Contratos y Estudios</div>
+      <div class="descripcion">Revisa los contratos y estudios de auditoras correspondientes para cada operación intercompañía.</div>
+    </a>
+
+    <a href="base-calculo-autoajuste.html" class="opcion">
+      <i class="fas fa-calculator"></i>
+      <div class="titulo">Base de Cálculo Autoajustes</div>
+      <div class="descripcion">Revisa los autoajustes realizados en diferentes ejercicios con su respectiva base de cálculo y ordenanza.</div>
+    </a>
+  </div>
+
+</body>
+</html>
