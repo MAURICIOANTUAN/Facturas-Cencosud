@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contratos y Estudios - Autoajuste</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .btn {
+      background-color: white;
+      color: #003087;
+      font-weight: bold;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #f1f1f1;
+    }
+
+    header {
+      background-color: #003087;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .filtros {
+      max-width: 1200px;
+      margin: 2rem auto 1rem;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    select, button {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #003087;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0052cc;
+    }
+
+    .contenedor {
+      max-width: 1200px;
+      margin: 1rem auto 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px 16px;
+      text-align: left;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #003087;
+      color: white;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+<body>
+
+<header>
+  <!-- Botón a la izquierda -->
+  <a href="autoajuste-intercompany.html" class="btn"><i class="fas fa-arrow-left"></i> Volver atrás</a>
+
+  <!-- Centro absoluto con logo y título -->
+  <div style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px;">
+    <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+    <h1 style="margin: 0; font-size: 24px;">Contratos y Estudios - Autoajuste</h1>
+  </div>
+
+  <!-- Botón a la derecha -->
+  <a href="plataforma.html" class="btn">Volver al Menú Principal</a>
+</header>
+
+<div class="filtros">
+  <select id="filtro-contraparte"><option value="">Contraparte</option></select>
+  <select id="filtro-ejercicio"><option value="">Ejercicio</option></select>
+  <select id="filtro-concepto"><option value="">Concepto</option></select>
+  <button onclick="filtrar()">Filtrar</button>
+  <button onclick="restablecer()">Restablecer</button>
+  <button onclick="descargarExcel()">Descargar Excel</button>
+</div>
+
+<div class="contenedor">
+  <table id="tabla-datos"></table>
+</div>
+
+</body>
+</html>
