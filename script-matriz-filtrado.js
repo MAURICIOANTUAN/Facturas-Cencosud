@@ -38,10 +38,15 @@ function cargarDatos() {
       document.getElementById("mensaje").textContent = "❌ No se pudo cargar la base de datos.";
     });
 }
-
 function mostrarTabla(data) {
   const tabla = document.getElementById("tabla-facturas");
-  if (!tabla || !data.length) return;
+  tabla.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    tabla.innerHTML = "<tr><td colspan='100%' style='text-align:center; font-weight:bold; padding: 15px;'>No hay resultados que mostrar.</td></tr>";
+    return;
+  }
+
   const columnas = Object.keys(data[0]);
   let html = "<thead><tr>";
   columnas.forEach(c => html += `<th>${c}</th>`);
@@ -58,24 +63,16 @@ function mostrarTabla(data) {
         const num = parseFloat(valor.toString().replace(/\./g, "").replace(",", "."));
         valor = isNaN(num) ? valor : `USD ${num.toLocaleString("es-CL")}`;
       }
-      if (col.trim() === "Factura") {
-        if (valor && valor.startsWith("http")) {
-          const contraparte = fila["Contraparte"];
-          valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida por CENCOSUD MATRIZ a ${contraparte}</a>`;
-        }
-      } else if (col.trim() === "Contrato") {
-        if (valor && valor.includes("file")) {
-          const contraparte = fila["Contraparte"];
-          valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato firmado con ${contraparte}</a>`;
-        }
-      } else if (col.trim() === "Estudio de precios") {
-        if (valor && valor.includes("Anexo")) {
-          const contraparte = fila["Contraparte"];
-          valor = `<a href="${valor}" target="_blank" style="color:#003087;">Estudio de precios para ${contraparte}</a>`;
-        }
+
+      if (col.trim() === "Factura" && valor?.startsWith("http")) {
+        valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida</a>`;
+      } else if (col.trim() === "Contrato" && valor?.includes("file")) {
+        valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato firmado</a>`;
+      } else if (col.trim() === "Estudio de precios" && valor?.includes("Anexo")) {
+        valor = `<a href="${valor}" target="_blank" style="color:#003087;">Estudio de precios</a>`;
       }
 
-      html += `<td>${valor}</td>`;
+      html += `<td>${valor ?? ""}</td>`;
     });
     html += "</tr>";
   });
@@ -83,6 +80,7 @@ function mostrarTabla(data) {
   html += "</tbody>";
   tabla.innerHTML = html;
 }
+
 
 function poblarContrapartes(data) {
   const select = document.getElementById("contraparte");
