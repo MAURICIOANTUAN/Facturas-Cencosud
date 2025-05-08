@@ -77,13 +77,22 @@
             font-size: 14px;
             text-decoration: none;
         ">← volver al Menu principal</a>
+      <!-- Centro absoluto con logo y título -->
+  <div style="
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  ">
+    <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+    <h2 style="margin: 0; font-size: 24px;">Base de datos facturas intercompañía</h2>
+  </div>
 
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
-            <h2 style="margin: 0; font-size: 24px; text-align: center;"> Base de datos facturas intercompañia</h2>
-        </div>
-
-    </header>
+  <!-- Elemento invisible a la derecha para balancear el layout -->
+  <div style="width: 170px;"></div>
+</header>
     
   <script>
     if (!sessionStorage.getItem("logueado")) {
