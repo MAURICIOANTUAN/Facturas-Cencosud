@@ -103,16 +103,14 @@
       mensaje.textContent = "";
       mensaje.classList.remove("mostrar");
     }
-
     function filtrarConMensaje() {
-      filtrar();
-      const tabla = document.getElementById("tabla-facturas");
-      if (tabla && tabla.rows.length <= 1) {
-        mostrarMensaje("No hay resultados de búsqueda", "error");
-      } else {
-        mostrarMensaje("Filtro ejecutado exitosamente", "exito");
-      }
-    }
+  filtrar();
+  if (typeof resultadosFiltrados === "undefined" || resultadosFiltrados.length === 0) {
+    mostrarMensaje("No hay resultados de búsqueda", "error");
+  } else {
+    mostrarMensaje("Filtro ejecutado exitosamente", "exito");
+  }
+}
 
     document.addEventListener("DOMContentLoaded", iniciarApp);
   </script>
