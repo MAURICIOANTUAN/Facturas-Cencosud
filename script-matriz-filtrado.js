@@ -66,7 +66,7 @@ function mostrarTabla(data) {
 
       if (col.trim() === "Factura" && valor?.startsWith("http")) {
         valor = `<a href="${valor}" target="_blank" style="color:#003087;">Factura emitida</a>`;
-      } else if (col.trim() === "Contrato" && valor?.includes("file")) {
+      } else if (col.trim() === "Contrato" && valor?.includes("http")) {
         valor = `<a href="${valor}" target="_blank" style="color:#003087;">Contrato firmado</a>`;
       } else if (col.trim() === "Estudio de precios" && valor?.includes("http")) {
         valor = `<a href="${valor}" target="_blank" style="color:#003087;">Estudio de precios</a>`;
