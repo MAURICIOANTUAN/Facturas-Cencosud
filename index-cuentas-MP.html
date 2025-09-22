@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de cuentas Marcas propias</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <style>
+    .mensaje {
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .mensaje.mostrar {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header style="background-color: #003087; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
+    <a href="javascript:window.history.back()" style="background-color: white; color: #003087; padding: 6px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none;">← Volver atras</a>
+    <div style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px;">
+      <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+      <h2 style="margin: 0; font-size: 24px;">Gestión de cuentas Marcas propias</h2>
+    </div>
+    <a href="plataforma.html" style="background-color: white; color: #003087; padding: 6px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none;">Volver al Menú Principal</a>
+  </header>
 
+  <div class="contenedor" id="contenido-app">
+    <div class="barra-superior">
+      <div class="cerrar-sesion-container">
+        <button class="cerrar-sesion-btn" onclick="cerrarSesion()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <h1 id="titulo-app">Gestión de cuentas: Experiencia clientes</h1>
+
+    <div class="formulario">
+      <h2 style="margin: 0; font-size: 24px; text-align: center;">Selecciona tu búsqueda</h2>
+
+      <div class="campos-filtro">
+        <label>Folio</label>
+        <input type="text" id="folio" placeholder="Ej: 12345" />
+      </div>
+
+      <br />
+      <button class="btn" onclick="filtrarConMensaje()">EJECUTAR FILTRO</button>
+      <button class="btn" onclick="limpiarFiltro(); limpiarMensaje();">RESTABLECER BASE DE DATOS</button>
+      <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
+
+      <p id="mensaje" class="mensaje"></p>
+    </div>
+
+    <br />
+    <table id="tabla-facturas"></table>
+  </div>
+
+  <script src="script-matriz-filtrado.js"></script>
+  <script>
+    function mostrarMensaje(texto, tipo = "exito") {
+      const mensaje = document.getElementById("mensaje");
+      mensaje.textContent = texto;
+      mensaje.style.color = tipo === "exito" ? "green" : "red";
+      mensaje.classList.add("mostrar");
+      setTimeout(() => mensaje.classList.remove("mostrar"), 3000);
+    }
+
+    function limpiarMensaje() {
+      const mensaje = document.getElementById("mensaje");
+      mensaje.textContent = "";
+      mensaje.classList.remove("mostrar");
+    }
+    function filtrarConMensaje() {
+  filtrar();
+  if (typeof resultadosFiltrados === "undefined" || resultadosFiltrados.length === 0) {
+    mostrarMensaje("No hay resultados de búsqueda", "error");
+  } else {
+    mostrarMensaje("Filtro ejecutado exitosamente", "exito");
+  }
+}
+
+    document.addEventListener("DOMContentLoaded", iniciarApp);
+  </script>
+</body>
+</html>
