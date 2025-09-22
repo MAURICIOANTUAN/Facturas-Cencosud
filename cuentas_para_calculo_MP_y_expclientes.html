@@ -1,88 +1,118 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Busqueda de cuentas para el calulo de Marcas propias y Experiencia clientes</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Selección de Operación a analizar</title>
   <style>
-    .mensaje {
-      opacity: 0;
-      transition: opacity 0.4s ease;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f3f3f3;
       text-align: center;
-      font-weight: bold;
-      margin-top: 10px;
     }
-    .mensaje.mostrar {
-      opacity: 1;
+
+    header {
+      background-color: #1a237e;
+      color: white;
+      padding: 20px;
+      font-size: 22px;
+    }
+
+    .contenedor {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .opcion {
+      background-color: white;
+      padding: 30px 25px;
+      width: 260px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .opcion:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .opcion i {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: #1a237e;
+    }
+
+    .titulo {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .descripcion {
+      font-size: 14px;
+      color: #666;
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <header style="background-color: #003087; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
-    <a href="javascript:window.history.back()" style="background-color: white; color: #003087; padding: 6px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none;">← Volver atras</a>
-    <div style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px;">
-      <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
-      <h2 style="margin: 0; font-size: 24px;">Base de datos facturas Matriz</h2>
-    </div>
-    <a href="plataforma.html" style="background-color: white; color: #003087; padding: 6px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none;">Volver al Menú Principal</a>
-  </header>
 
-  <div class="contenedor" id="contenido-app">
-    <div class="barra-superior">
-      <div class="cerrar-sesion-container">
-        <button class="cerrar-sesion-btn" onclick="cerrarSesion()">Cerrar sesión</button>
-      </div>
-    </div>
-
-    <h1 id="titulo-app">Busqueda de cuentas para el calulo de Marcas propias y Experiencia clientes</h1>
-
-    <div class="formulario">
-      <h2 style="margin: 0; font-size: 24px; text-align: center;">Selecciona tu búsqueda</h2>
-
-      <div class="campos-filtro">
-        <label>Numero de cuenta </label>
-        <input type="text" id="folio" placeholder="Ej: 12345" />
-      </div>
-
-      <br />
-      <button class="btn" onclick="filtrarConMensaje()">EJECUTAR FILTRO</button>
-      <button class="btn" onclick="limpiarFiltro(); limpiarMensaje();">RESTABLECER BASE DE DATOS</button>
-      <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
-
-      <p id="mensaje" class="mensaje"></p>
-    </div>
-
-    <br />
-    <table id="tabla-facturas"></table>
+    
+    
+    
+    <header style="background-color: #003087; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="javascript:window.history.back()" style="
+            background-color: white;
+            color: #003087;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+ <a href="plataforma.html" class="btn-volver"><i class="fas fa-arrow-left"></i> Volver al Menu principal</a>      <!-- Centro absoluto con logo y título -->
+  <div style="
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  ">
+    <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
+    <h2 style="margin: 0; font-size: 24px;">Selecciona el proceso a analizar</h2>
   </div>
 
-  <script src="script-matriz-filtrado.js"></script>
+  <!-- Elemento invisible a la derecha para balancear el layout -->
+  <div style="width: 170px;"></div>
+</header>
+    
   <script>
-    function mostrarMensaje(texto, tipo = "exito") {
-      const mensaje = document.getElementById("mensaje");
-      mensaje.textContent = texto;
-      mensaje.style.color = tipo === "exito" ? "green" : "red";
-      mensaje.classList.add("mostrar");
-      setTimeout(() => mensaje.classList.remove("mostrar"), 3000);
+    if (!sessionStorage.getItem("logueado")) {
+      window.location.href = "index.html";
     }
-
-    function limpiarMensaje() {
-      const mensaje = document.getElementById("mensaje");
-      mensaje.textContent = "";
-      mensaje.classList.remove("mostrar");
-    }
-    function filtrarConMensaje() {
-  filtrar();
-  if (typeof resultadosFiltrados === "undefined" || resultadosFiltrados.length === 0) {
-    mostrarMensaje("No hay resultados de búsqueda", "error");
-  } else {
-    mostrarMensaje("Filtro ejecutado exitosamente", "exito");
-  }
-}
-
-    document.addEventListener("DOMContentLoaded", iniciarApp);
   </script>
+
+  
+
+  <div class="contenedor">
+    <a href="index-cuentas-MP.html" class="opcion">
+      <i class=""></i>
+      <div class="titulo">Cuentas para el calculo de Marcas propias</div>
+      <div class="descripcion">Revisa las cuentas segmentas por su tipo de transaccion para el calculo de la facturación por concepto de marcas propias.</div>
+    </a>
+
+    <a href="index-cuentas-ExpClientes.html" class="opcion">
+      <i class=""></i>
+      <div class="titulo">Cuentas Experiencia Clientes</div>
+      <div class="descripcion">Revisa las cuentas segmentas por su tipo de transaccion para el calculo de la facturación por concepto de experiencia clientes.</div>
+    </a>
+  </div>
 </body>
 </html>
