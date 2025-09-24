@@ -1,88 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Gestión de cuentas Marcas propias</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <meta charset="utf-8" />
+  <title>Cuentas – Marcas Propias</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    .mensaje {
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      text-align: center;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-    .mensaje.mostrar {
-      opacity: 1;
-    }
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;margin:0;background:#f7f9fc;color:#0f172a}
+    header{background:#0b63b6;color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+    header h1{margin:0;font-size:18px;font-weight:600}
+    .wrap{max-width:1200px;margin:24px auto;padding:0 16px}
+    .card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(2,6,23,.06);padding:16px}
+    .form-grid{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:end}
+    label{font-size:12px;color:#334155;font-weight:600}
+    input[type="text"]{padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:14px;background:#fff}
+    .btn{padding:10px 14px;border-radius:10px;border:0;background:#0b63b6;color:#fff;font-weight:600;cursor:pointer}
+    .btn.secondary{background:#0f766e}
+    .btn.light{background:#475569}
+    .msg{height:18px;font-size:13px;margin-top:8px;visibility:hidden}
+    table{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:12px;overflow:hidden}
+    thead th{position:sticky;top:0;background:#eef2ff;color:#334155;text-align:left;font-size:12px;letter-spacing:.02em;padding:10px;border-bottom:1px solid #e2e8f0}
+    tbody td{padding:10px;border-bottom:1px solid #f1f5f9;font-size:13px}
+    tbody tr:hover{background:#f8fafc}
   </style>
+  <!-- Librerías: PapaParse y SheetJS (para descargar a Excel) -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
 <body>
-  <header style="background-color: #003087; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center;">
-    <a href="javascript:window.history.back()" style="background-color: white; color: #003087; padding: 6px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none;">← Volver atras</a>
-    <div style="position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px;">
-      <img src="cencosud-logo.png" alt="Logo" style="height: 40px;">
-      <h2 style="margin: 0; font-size: 24px;">Gestión de cuentas Marcas propias</h2>
-    </div>
-    <a href="plataforma.html" style="background-color: white; color: #003087; padding: 6px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none;">Volver al Menú Principal</a>
+  <header>
+    <h1>Plataforma de Gestión Tributaria — Marcas Propias</h1>
+    <nav>
+      <a href="index.html" style="color:#fff;text-decoration:none;font-weight:600">Volver al menú</a>
+    </nav>
   </header>
 
-  <div class="contenedor" id="contenido-app">
-    <div class="barra-superior">
-      <div class="cerrar-sesion-container">
-        <button class="cerrar-sesion-btn" onclick="cerrarSesion()">Cerrar sesión</button>
-      </div>
-    </div>
-
-    <h1 id="titulo-app">Gestión de cuentas: Experiencia clientes</h1>
-
-    <div class="formulario">
-      <h2 style="margin: 0; font-size: 24px; text-align: center;">Selecciona tu búsqueda</h2>
-
-      <div class="campos-filtro">
-        <label>Folio</label>
-        <input type="text" id="folio" placeholder="Ej: 12345" />
+  <div class="wrap">
+    <div class="card">
+      <div class="form-grid">
+        <div>
+          <label for="cuenta">N° de cuenta</label>
+          <input id="cuenta" type="text" placeholder="Ej: 410101" />
+          <div id="mensaje" class="msg"></div>
+        </div>
+        <button class="btn" id="btn-filtrar">EJECUTAR FILTRO</button>
+        <button class="btn secondary" id="btn-reset">RESTABLECER</button>
+        <button class="btn light" id="btn-descargar">DESCARGAR</button>
       </div>
 
-      <br />
-      <button class="btn" onclick="filtrarConMensaje()">EJECUTAR FILTRO</button>
-      <button class="btn" onclick="limpiarFiltro(); limpiarMensaje();">RESTABLECER BASE DE DATOS</button>
-      <button class="btn" onclick="descargarExcel()">DESCARGAR RESULTADOS</button>
-
-      <p id="mensaje" class="mensaje"></p>
+      <table id="tabla-facturas"></table>
     </div>
-
-    <br />
-    <table id="tabla-facturas"></table>
   </div>
 
-  <script src="script-matriz-filtrado.js"></script>
-  <script>
-    function mostrarMensaje(texto, tipo = "exito") {
-      const mensaje = document.getElementById("mensaje");
-      mensaje.textContent = texto;
-      mensaje.style.color = tipo === "exito" ? "green" : "red";
-      mensaje.classList.add("mostrar");
-      setTimeout(() => mensaje.classList.remove("mostrar"), 3000);
-    }
+  <script type="module">
+    import { iniciarCuentasPorNumero, filtrarPorNumeroCuenta, limpiarFiltro, descargarExcel } from './script-cuentas-por-numero.js';
 
-    function limpiarMensaje() {
-      const mensaje = document.getElementById("mensaje");
-      mensaje.textContent = "";
-      mensaje.classList.remove("mostrar");
-    }
-    function filtrarConMensaje() {
-  filtrar();
-  if (typeof resultadosFiltrados === "undefined" || resultadosFiltrados.length === 0) {
-    mostrarMensaje("No hay resultados de búsqueda", "error");
-  } else {
-    mostrarMensaje("Filtro ejecutado exitosamente", "exito");
-  }
-}
+    // CSV publicado (Marcas Propias) — GID = 0
+    const CSV_MP = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT89jkEZINwneBaD4ZZC9RJfCh3gklGO_8n2cIDkUvr0vZW2bTqNi2wiVBqH3wgVrDfa3IWAZnj7LHd/pub?gid=0&single=true&output=csv';
 
-    document.addEventListener("DOMContentLoaded", iniciarApp);
+    // Mapeo: cabecera CSV -> nombre canónico
+    const MAP_MP = {
+      'Número de cuenta': 'numero_cuenta',
+      'Numero de cuenta': 'numero_cuenta',
+      'Cuenta': 'numero_cuenta',
+      'Descripción': 'descripcion',
+      'Descripcion': 'descripcion',
+      'Monto CLP': 'monto',
+      'Monto': 'monto',
+      'Es Marca Propia': 'es_marca_propia',
+      'Línea Marca': 'linea_marca',
+      'Linea Marca': 'linea_marca',
+      'Categoria': 'categoria_marca',
+      'Categoría': 'categoria_marca'
+    };
+
+    const CFG = {
+      csvUrl: CSV_MP,
+      map: MAP_MP,
+      tablaId: 'tabla-facturas',
+      inputId: 'cuenta',
+      mensajeId: 'mensaje'
+    };
+
+    // Botones
+    document.getElementById('btn-filtrar').addEventListener('click', () => filtrarPorNumeroCuenta(CFG));
+    document.getElementById('btn-reset').addEventListener('click', () => limpiarFiltro(CFG));
+    document.getElementById('btn-descargar').addEventListener('click', () => descargarExcel('marcas-propias-filtradas.xlsx'));
+
+    // Cargar base
+    window.addEventListener('load', () => iniciarCuentasPorNumero(CFG));
   </script>
 </body>
 </html>
