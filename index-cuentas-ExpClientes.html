@@ -22,7 +22,6 @@
     tbody td{padding:10px;border-bottom:1px solid #f1f5f9;font-size:13px}
     tbody tr:hover{background:#f8fafc}
   </style>
-  <!-- Librerías: PapaParse y SheetJS -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
@@ -54,17 +53,26 @@
   <script type="module">
     import { iniciarCuentasPorNumero, filtrarPorNumeroCuenta, limpiarFiltro, descargarExcel } from './script-cuentas-por-numero.js';
 
-    // CSV publicado (Experiencia Clientes) — GID = 839541302
     const CSV_EXP = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT89jkEZINwneBaD4ZZC9RJfCh3gklGO_8n2cIDkUvr0vZW2bTqNi2wiVBqH3wgVrDfa3IWAZnj7LHd/pub?gid=839541302&single=true&output=csv';
 
     const MAP_EXP = {
       'Número de cuenta': 'numero_cuenta',
       'Numero de cuenta': 'numero_cuenta',
       'Cuenta': 'numero_cuenta',
+
+      'Agrupación': 'agrupacion',
+      'Agrupacion': 'agrupacion',
+      'Grupo': 'agrupacion',
+      'Grupo contable': 'agrupacion',
+      'Agrupación contable': 'agrupacion',
+      'Agrupacion contable': 'agrupacion',
+
       'Descripción': 'descripcion',
       'Descripcion': 'descripcion',
+
       'Monto CLP': 'monto',
       'Monto': 'monto',
+
       'NPS': 'nps',
       'Satisfacción': 'satisfaccion',
       'Satisfaccion': 'satisfaccion',
@@ -87,3 +95,4 @@
   </script>
 </body>
 </html>
+
