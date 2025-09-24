@@ -9,16 +9,16 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
     body{font-family:Arial, sans-serif; background:#f4f4f4; margin:0}
-    /* === HEADER idéntico al resto === */
+    /* === HEADER igual a facturas === */
     .btn-volver{
       background:#fff; color:#003087; font-weight:bold;
-      padding:6px 10px; border-radius:5px; font-size:14px; text-decoration:none;
+      padding:6px 12px; border-radius:5px; font-size:14px; text-decoration:none;
+      white-space:nowrap; display:inline-block;
     }
     header{
       background:#003087; color:#fff; padding:10px 20px;
       display:flex; justify-content:space-between; align-items:center; position:relative;
     }
-    /* === Contenido === */
     .contenedor{max-width:1200px; margin:1rem auto 2rem; background:#fff; border-radius:12px;
       box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:20px; overflow-x:auto}
     .barra{display:grid; grid-template-columns:1fr auto auto auto; gap:12px; align-items:end}
@@ -33,27 +33,25 @@
     table{width:100%; border-collapse:collapse; margin-top:16px}
     th,td{border:1px solid #ddd; padding:8px 12px; text-align:left; white-space:nowrap; font-size:14px}
     thead th{background:#eef2ff; color:#1f2937}
-    tr{line-height:1.5}
     tr:hover{background:#f8fafc}
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <!-- Izquierda -->
     <a href="cuentas_para_calculo_MP_y_expclientes.html" class="btn-volver">
       <i class="fas fa-arrow-left"></i> Volver atras
     </a>
 
-    <!-- Centro: logo + título -->
+    <!-- Centro -->
     <div style="position:absolute; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:10px;">
       <img src="cencosud-logo.png" alt="Logo" style="height:40px;">
-      <h1 style="margin:0; font-size:24px;">Contratos y Estudios - Marcas Propias</h1>
+      <h1 style="margin:0; font-size:20px;">Contratos y Estudios - Marcas Propias</h1>
     </div>
 
-    <!-- Derecha (espacio para balancear) -->
-    <div style="width:170px;">
+    <!-- Derecha -->
+    <div>
       <a href="plataforma.html" class="btn-volver">Volver al Menu Principal</a>
     </div>
   </header>
@@ -93,4 +91,5 @@
   </script>
 </body>
 </html>
+
 
