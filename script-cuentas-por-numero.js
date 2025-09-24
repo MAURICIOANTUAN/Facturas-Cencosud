@@ -1,6 +1,5 @@
 // script-cuentas-por-numero.js
-// Especializado para páginas que filtran SOLO por número de cuenta.
-// Requiere PapaParse y SheetJS (XLSX) ya cargados en el HTML.
+// Filtra SOLO por número de cuenta y muestra, si existe, la Agrupación.
 
 let DATASET = [];
 let resultadosFiltrados = [];
@@ -17,7 +16,7 @@ export async function iniciarCuentasPorNumero(config) {
     resultadosFiltrados = DATASET.slice();
     renderTabla(tablaId, resultadosFiltrados);
     if (mensajeId) setMensaje(mensajeId, `Base cargada: ${DATASET.length} filas`, false);
-    // Eventos enter en el input
+
     const $i = document.getElementById(inputId);
     if ($i) $i.addEventListener('keydown', (e) => { if (e.key === 'Enter') filtrarPorNumeroCuenta(config); });
   } catch (e) {
@@ -61,7 +60,6 @@ export function descargarExcel(nombre = "cuentas-filtradas.xlsx") {
 // ---------- helpers ----------
 function mapRow(row, mapping) {
   const o = {};
-  // mapea solo las columnas declaradas en "mapping"
   for (const [colCsv, canon] of Object.entries(mapping)) {
     if (row.hasOwnProperty(colCsv)) {
       o[canon] = row[colCsv];
@@ -70,6 +68,15 @@ function mapRow(row, mapping) {
   // normaliza número de cuenta
   if ("numero_cuenta" in o) {
     o.numero_cuenta = normalizeCuenta(o.numero_cuenta);
+  }
+  // asegura que siempre exista la clave agrupacion (si no vino, deja '-')
+  if (!("agrupacion" in o)) {
+    // intenta detección blanda por si vienen columnas no mapeadas:
+    const posibles = ['Agrupación','Agrupacion','Grupo','Grupo contable','Agrupación contable','Agrupacion contable'];
+    for (const k of posibles) {
+      if (row.hasOwnProperty(k)) { o.agrupacion = row[k]; break; }
+    }
+    if (!("agrupacion" in o)) o.agrupacion = '-';
   }
   return o;
 }
@@ -83,8 +90,14 @@ function renderTabla(tablaId, data) {
     return;
   }
 
-  // columnas: todas las claves que aparezcan en el dataset (orden estable)
-  const columnas = [...new Set(data.flatMap(f => Object.keys(f)))];
+  // Orden recomendado de columnas (si existen)
+  const prefer = ['numero_cuenta','agrupacion','descripcion','monto','es_marca_propia','linea_marca','categoria_marca','nps','satisfaccion','reclamos'];
+  const allCols = [...new Set(data.flatMap(f => Object.keys(f)))];
+
+  const columnas = [
+    ...prefer.filter(c => allCols.includes(c)),
+    ...allCols.filter(c => !prefer.includes(c))
+  ];
 
   let html = "<thead><tr>";
   columnas.forEach(c => { html += `<th>${escapeHtml(tituloBonito(c))}</th>`; });
@@ -105,9 +118,9 @@ function renderTabla(tablaId, data) {
 }
 
 function tituloBonito(k) {
-  // opcional: mejora headers canónicos
   const map = {
     numero_cuenta: "N° Cuenta",
+    agrupacion: "Agrupación",
     descripcion: "Descripción",
     monto: "Monto CLP",
     es_marca_propia: "Es Marca Propia",
@@ -122,9 +135,8 @@ function tituloBonito(k) {
 
 function normalizeCuenta(x) {
   if (x == null) return "";
-  // Estandariza a "solo dígitos", sin ceros a la izquierda para evitar desalineos.
   const digits = String(x).replace(/\D+/g, "");
-  return digits.replace(/^0+/, ""); // quita ceros iniciales
+  return digits.replace(/^0+/, "");
 }
 
 function setMensaje(id, texto, esError = false) {
@@ -132,11 +144,7 @@ function setMensaje(id, texto, esError = false) {
   if (!el) return;
   el.textContent = texto || "";
   el.style.color = esError ? "#c62828" : "#2e7d32";
-  if (texto) {
-    el.style.visibility = "visible";
-  } else {
-    el.style.visibility = "hidden";
-  }
+  el.style.visibility = texto ? "visible" : "hidden";
 }
 
 function escapeHtml(v) {
