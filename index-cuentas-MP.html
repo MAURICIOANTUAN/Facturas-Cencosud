@@ -4,90 +4,156 @@
   <meta charset="utf-8" />
   <title>Cuentas – Marcas Propias</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Estilos base unificados -->
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif;margin:0;background:#f7f9fc;color:#0f172a}
-    header{background:#0b63b6;color:#fff;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
-    header h1{margin:0;font-size:18px;font-weight:600}
+    :root{
+      --brand:#0b63b6;
+      --brand-600:#09579f;
+      --text:#0f172a;
+      --muted:#334155;
+      --bg:#f6f8fb;
+      --card:#ffffff;
+      --border:#e2e8f0;
+      --chip:#eef2ff;
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
+
+    /* HEADER unificado */
+    .app-header{
+      background:var(--brand); color:#fff;
+      display:grid; grid-template-columns:auto 1fr auto; align-items:center;
+      gap:12px; padding:10px 16px;
+      box-shadow:0 2px 12px rgba(2,6,23,.12);
+    }
+    .app-header .logo{
+      display:flex; align-items:center; gap:10px; min-width:180px;
+    }
+    .app-header .logo img{
+      height:34px; width:auto; display:block; filter:brightness(0) invert(1);
+    }
+    .app-header .title{
+      text-align:center; font-weight:700; letter-spacing:.2px; font-size:16px;
+    }
+    .app-header .actions{
+      display:flex; gap:8px; justify-content:flex-end; min-width:190px;
+    }
+    .btn{
+      appearance:none; border:0; border-radius:10px; cursor:pointer;
+      padding:10px 14px; font-weight:700; font-size:13px; color:#fff;
+      background:rgba(255,255,255,.18);
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn:hover{ background:rgba(255,255,255,.28) }
+    .btn.secondary{ background:#0f766e }
+    .btn.dark{ background:#475569 }
+    .btn i{ font-size:14px }
+
+    /* CONTENEDOR */
     .wrap{max-width:1200px;margin:24px auto;padding:0 16px}
-    .card{background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(2,6,23,.06);padding:16px}
-    .form-grid{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:end}
-    label{font-size:12px;color:#334155;font-weight:600}
-    input[type="text"]{padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font-size:14px;background:#fff}
-    .btn{padding:10px 14px;border-radius:10px;border:0;background:#0b63b6;color:#fff;font-weight:600;cursor:pointer}
-    .btn.secondary{background:#0f766e}
-    .btn.light{background:#475569}
-    .msg{height:18px;font-size:13px;margin-top:8px;visibility:hidden}
-    table{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:12px;overflow:hidden}
-    thead th{position:sticky;top:0;background:#eef2ff;color:#334155;text-align:left;font-size:12px;letter-spacing:.02em;padding:10px;border-bottom:1px solid #e2e8f0}
-    tbody td{padding:10px;border-bottom:1px solid #f1f5f9;font-size:13px}
-    tbody tr:hover{background:#f8fafc}
+    .card{
+      background:var(--card); border-radius:var(--radius);
+      box-shadow:0 2px 14px rgba(2,6,23,.06); padding:16px;
+      border:1px solid var(--border);
+    }
+
+    /* FORM / CONTROLES */
+    .toolbar{
+      display:grid; grid-template-columns:1fr auto auto auto; gap:12px; align-items:end;
+    }
+    label{font-size:12px; color:var(--muted); font-weight:700}
+    input[type="text"]{
+      width:100%; padding:11px 12px; border:1px solid var(--border); border-radius:10px;
+      font-size:14px; background:#fff;
+      outline:none;
+    }
+    input[type="text"]:focus{ border-color:var(--brand) }
+
+    .cta{ display:flex; gap:10px; }
+    .cta .btn{ background:var(--brand) }
+    .cta .btn:hover{ background:var(--brand-600) }
+    .cta .btn.secondary{ background:#0f766e }
+    .cta .btn.dark{ background:#475569 }
+
+    .msg{min-height:18px;font-size:13px;margin-top:6px;visibility:hidden}
+
+    /* TABLA */
+    .table-wrap{ margin-top:16px; border:1px solid var(--border); border-radius:12px; overflow:auto; }
+    table{ width:100%; border-collapse:collapse; background:#fff }
+    thead th{
+      position:sticky; top:0; z-index:1;
+      background:var(--chip); color:#1f2937;
+      text-align:left; font-size:12px; letter-spacing:.02em;
+      padding:10px; border-bottom:1px solid var(--border)
+    }
+    tbody td{ padding:10px; border-bottom:1px solid #f1f5f9; font-size:13px }
+    tbody tr:hover{ background:#f8fafc }
+
+    /* RESPONSIVE */
+    @media (max-width:680px){
+      .app-header{ grid-template-columns:1fr auto; grid-auto-rows:auto }
+      .app-header .title{ grid-column:1 / -1; order:3; padding-top:6px }
+      .toolbar{ grid-template-columns:1fr; }
+      .cta{ justify-content:space-between }
+    }
   </style>
+
+  <!-- Librerías -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
 <body>
-  <header>
-    <h1>Plataforma de Gestión Tributaria — Marcas Propias</h1>
-    <nav>
-      <a href="index.html" style="color:#fff;text-decoration:none;font-weight:600">Volver al menú</a>
-    </nav>
+  <!-- Header unificado -->
+  <header class="app-header">
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+    </div>
+    <div class="title">Plataforma de Gestión Tributaria — Marcas Propias</div>
+    <div class="actions">
+      <button class="btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i><span>Volver</span></button>
+      <a class="btn dark" href="index.html"><i class="fa-solid fa-house"></i><span>Menú</span></a>
+    </div>
   </header>
 
-  <div class="wrap">
-    <div class="card">
-      <div class="form-grid">
+  <main class="wrap">
+    <section class="card">
+      <div class="toolbar">
         <div>
           <label for="cuenta">N° de cuenta</label>
           <input id="cuenta" type="text" placeholder="Ej: 410101" />
           <div id="mensaje" class="msg"></div>
         </div>
-        <button class="btn" id="btn-filtrar">EJECUTAR FILTRO</button>
-        <button class="btn secondary" id="btn-reset">RESTABLECER</button>
-        <button class="btn light" id="btn-descargar">DESCARGAR</button>
+        <div class="cta">
+          <button class="btn" id="btn-filtrar"><i class="fa-solid fa-magnifying-glass"></i> EJECUTAR</button>
+          <button class="btn secondary" id="btn-reset"><i class="fa-solid fa-rotate-left"></i> RESTABLECER</button>
+          <button class="btn dark" id="btn-descargar"><i class="fa-solid fa-file-excel"></i> DESCARGAR</button>
+        </div>
       </div>
 
-      <table id="tabla-facturas"></table>
-    </div>
-  </div>
+      <div class="table-wrap">
+        <table id="tabla-facturas"></table>
+      </div>
+    </section>
+  </main>
 
   <script type="module">
     import { iniciarCuentasPorNumero, filtrarPorNumeroCuenta, limpiarFiltro, descargarExcel } from './script-cuentas-por-numero.js';
 
     const CSV_MP = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT89jkEZINwneBaD4ZZC9RJfCh3gklGO_8n2cIDkUvr0vZW2bTqNi2wiVBqH3wgVrDfa3IWAZnj7LHd/pub?gid=0&single=true&output=csv';
 
-    // Incluye posibles encabezados de AGRUPACIÓN para mapear -> 'agrupacion'
+    // Mapeo con “Agrupación”
     const MAP_MP = {
-      'Número de cuenta': 'numero_cuenta',
-      'Numero de cuenta': 'numero_cuenta',
-      'Cuenta': 'numero_cuenta',
-
-      'Agrupación': 'agrupacion',
-      'Agrupacion': 'agrupacion',
-      'Grupo': 'agrupacion',
-      'Grupo contable': 'agrupacion',
-      'Agrupación contable': 'agrupacion',
-      'Agrupacion contable': 'agrupacion',
-
-      'Descripción': 'descripcion',
-      'Descripcion': 'descripcion',
-
-      'Monto CLP': 'monto',
-      'Monto': 'monto',
-
-      'Es Marca Propia': 'es_marca_propia',
-      'Línea Marca': 'linea_marca',
-      'Linea Marca': 'linea_marca',
-      'Categoria': 'categoria_marca',
-      'Categoría': 'categoria_marca'
+      'Número de cuenta':'numero_cuenta','Numero de cuenta':'numero_cuenta','Cuenta':'numero_cuenta',
+      'Agrupación':'agrupacion','Agrupacion':'agrupacion','Grupo':'agrupacion','Grupo contable':'agrupacion','Agrupación contable':'agrupacion','Agrupacion contable':'agrupacion',
+      'Descripción':'descripcion','Descripcion':'descripcion',
+      'Monto CLP':'monto','Monto':'monto',
+      'Es Marca Propia':'es_marca_propia','Línea Marca':'linea_marca','Linea Marca':'linea_marca','Categoria':'categoria_marca','Categoría':'categoria_marca'
     };
 
-    const CFG = {
-      csvUrl: CSV_MP,
-      map: MAP_MP,
-      tablaId: 'tabla-facturas',
-      inputId: 'cuenta',
-      mensajeId: 'mensaje'
-    };
+    const CFG = { csvUrl: CSV_MP, map: MAP_MP, tablaId: 'tabla-facturas', inputId: 'cuenta', mensajeId: 'mensaje' };
 
     document.getElementById('btn-filtrar').addEventListener('click', () => filtrarPorNumeroCuenta(CFG));
     document.getElementById('btn-reset').addEventListener('click', () => limpiarFiltro(CFG));
