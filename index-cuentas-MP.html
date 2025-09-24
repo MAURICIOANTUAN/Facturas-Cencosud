@@ -22,7 +22,6 @@
     tbody td{padding:10px;border-bottom:1px solid #f1f5f9;font-size:13px}
     tbody tr:hover{background:#f8fafc}
   </style>
-  <!-- Librerías: PapaParse y SheetJS (para descargar a Excel) -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
@@ -54,18 +53,27 @@
   <script type="module">
     import { iniciarCuentasPorNumero, filtrarPorNumeroCuenta, limpiarFiltro, descargarExcel } from './script-cuentas-por-numero.js';
 
-    // CSV publicado (Marcas Propias) — GID = 0
     const CSV_MP = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT89jkEZINwneBaD4ZZC9RJfCh3gklGO_8n2cIDkUvr0vZW2bTqNi2wiVBqH3wgVrDfa3IWAZnj7LHd/pub?gid=0&single=true&output=csv';
 
-    // Mapeo: cabecera CSV -> nombre canónico
+    // Incluye posibles encabezados de AGRUPACIÓN para mapear -> 'agrupacion'
     const MAP_MP = {
       'Número de cuenta': 'numero_cuenta',
       'Numero de cuenta': 'numero_cuenta',
       'Cuenta': 'numero_cuenta',
+
+      'Agrupación': 'agrupacion',
+      'Agrupacion': 'agrupacion',
+      'Grupo': 'agrupacion',
+      'Grupo contable': 'agrupacion',
+      'Agrupación contable': 'agrupacion',
+      'Agrupacion contable': 'agrupacion',
+
       'Descripción': 'descripcion',
       'Descripcion': 'descripcion',
+
       'Monto CLP': 'monto',
       'Monto': 'monto',
+
       'Es Marca Propia': 'es_marca_propia',
       'Línea Marca': 'linea_marca',
       'Linea Marca': 'linea_marca',
@@ -81,13 +89,12 @@
       mensajeId: 'mensaje'
     };
 
-    // Botones
     document.getElementById('btn-filtrar').addEventListener('click', () => filtrarPorNumeroCuenta(CFG));
     document.getElementById('btn-reset').addEventListener('click', () => limpiarFiltro(CFG));
     document.getElementById('btn-descargar').addEventListener('click', () => descargarExcel('marcas-propias-filtradas.xlsx'));
 
-    // Cargar base
     window.addEventListener('load', () => iniciarCuentasPorNumero(CFG));
   </script>
 </body>
 </html>
+
