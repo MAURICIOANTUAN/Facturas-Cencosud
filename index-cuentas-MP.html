@@ -4,100 +4,87 @@
   <meta charset="utf-8" />
   <title>Cuentas – Marcas Propias</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Iconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <!-- Estilos base unificados -->
   <style>
     :root{
-      --brand:#0b63b6;
-      --brand-600:#09579f;
+      --header:#0b3b86; /* azul fuerte tipo Cencosud */
+      --header-600:#082f6c;
       --text:#0f172a;
       --muted:#334155;
-      --bg:#f6f8fb;
+      --bg:#f5f7fb;
       --card:#ffffff;
-      --border:#e2e8f0;
-      --chip:#eef2ff;
-      --radius:14px;
+      --border:#dbe3ef;
+      --radius:12px;
+      --btn-blue:#0b3b86;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
+    html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
 
-    /* HEADER unificado */
-    .app-header{
-      background:var(--brand); color:#fff;
-      display:grid; grid-template-columns:auto 1fr auto; align-items:center;
-      gap:12px; padding:10px 16px;
-      box-shadow:0 2px 12px rgba(2,6,23,.12);
+    /* ====== HEADER como en tu captura ====== */
+    .topbar{
+      background:var(--header);
+      display:grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items:center;
+      padding:12px 16px;
+      gap:12px;
+      box-shadow:0 2px 10px rgba(0,0,0,.08);
     }
-    .app-header .logo{
-      display:flex; align-items:center; gap:10px; min-width:180px;
+    .topbar .left,
+    .topbar .right{
+      display:flex; align-items:center; gap:10px;
     }
-    .app-header .logo img{
-      height:34px; width:auto; display:block; filter:brightness(0) invert(1);
+    .topbar .center{
+      display:flex; align-items:center; gap:12px; justify-content:center;
+      color:#fff; font-weight:800; font-size:24px;
     }
-    .app-header .title{
-      text-align:center; font-weight:700; letter-spacing:.2px; font-size:16px;
+    .topbar .center img{
+      height:38px; width:auto; display:block;
     }
-    .app-header .actions{
-      display:flex; gap:8px; justify-content:flex-end; min-width:190px;
+
+    /* Botones blancos redondeados (idénticos) */
+    .nav-btn{
+      background:#fff;
+      color:var(--header);
+      border:1px solid #ffffff;
+      border-radius:10px;
+      padding:10px 14px;
+      font-weight:800;
+      font-size:16px;
+      text-decoration:none;
+      display:inline-flex; align-items:center; gap:10px;
+      box-shadow:0 1px 0 rgba(255,255,255,.25) inset, 0 1px 3px rgba(2,6,23,.12);
     }
+    .nav-btn i{ font-size:16px }
+    .nav-btn:hover{ filter:brightness(.96) }
+
+    /* ====== CONTENIDO ====== */
+    .wrap{max-width:1200px;margin:20px auto;padding:0 16px}
+    .card{
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+      box-shadow:0 2px 12px rgba(2,6,23,.05); padding:16px;
+    }
+    .toolbar{display:grid; grid-template-columns:1fr auto auto auto; gap:12px; align-items:end}
+    label{font-size:12px; color:var(--muted); font-weight:700}
+    input[type="text"]{width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:10px; font-size:14px; background:#fff}
+    input[type="text"]:focus{outline:none; border-color:var(--header)}
     .btn{
       appearance:none; border:0; border-radius:10px; cursor:pointer;
-      padding:10px 14px; font-weight:700; font-size:13px; color:#fff;
-      background:rgba(255,255,255,.18);
-      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; font-weight:800; font-size:14px; color:#fff; background:var(--btn-blue);
     }
-    .btn:hover{ background:rgba(255,255,255,.28) }
+    .btn:hover{ background:var(--header-600) }
     .btn.secondary{ background:#0f766e }
     .btn.dark{ background:#475569 }
-    .btn i{ font-size:14px }
 
-    /* CONTENEDOR */
-    .wrap{max-width:1200px;margin:24px auto;padding:0 16px}
-    .card{
-      background:var(--card); border-radius:var(--radius);
-      box-shadow:0 2px 14px rgba(2,6,23,.06); padding:16px;
-      border:1px solid var(--border);
-    }
-
-    /* FORM / CONTROLES */
-    .toolbar{
-      display:grid; grid-template-columns:1fr auto auto auto; gap:12px; align-items:end;
-    }
-    label{font-size:12px; color:var(--muted); font-weight:700}
-    input[type="text"]{
-      width:100%; padding:11px 12px; border:1px solid var(--border); border-radius:10px;
-      font-size:14px; background:#fff;
-      outline:none;
-    }
-    input[type="text"]:focus{ border-color:var(--brand) }
-
-    .cta{ display:flex; gap:10px; }
-    .cta .btn{ background:var(--brand) }
-    .cta .btn:hover{ background:var(--brand-600) }
-    .cta .btn.secondary{ background:#0f766e }
-    .cta .btn.dark{ background:#475569 }
-
-    .msg{min-height:18px;font-size:13px;margin-top:6px;visibility:hidden}
-
-    /* TABLA */
-    .table-wrap{ margin-top:16px; border:1px solid var(--border); border-radius:12px; overflow:auto; }
-    table{ width:100%; border-collapse:collapse; background:#fff }
-    thead th{
-      position:sticky; top:0; z-index:1;
-      background:var(--chip); color:#1f2937;
-      text-align:left; font-size:12px; letter-spacing:.02em;
-      padding:10px; border-bottom:1px solid var(--border)
-    }
+    .table-wrap{ margin-top:14px; border:1px solid var(--border); border-radius:12px; overflow:auto; background:#fff }
+    table{ width:100%; border-collapse:collapse }
+    thead th{ position:sticky; top:0; background:#eef2ff; color:#1f2937; text-align:left; font-size:12px; padding:10px; border-bottom:1px solid var(--border) }
     tbody td{ padding:10px; border-bottom:1px solid #f1f5f9; font-size:13px }
     tbody tr:hover{ background:#f8fafc }
+    .msg{min-height:18px;font-size:13px;margin-top:6px;visibility:hidden}
 
-    /* RESPONSIVE */
-    @media (max-width:680px){
-      .app-header{ grid-template-columns:1fr auto; grid-auto-rows:auto }
-      .app-header .title{ grid-column:1 / -1; order:3; padding-top:6px }
+    @media (max-width:720px){
       .toolbar{ grid-template-columns:1fr; }
-      .cta{ justify-content:space-between }
     }
   </style>
 
@@ -106,17 +93,20 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
 <body>
-  <!-- Header unificado -->
-  <header class="app-header">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo" />
+
+  <!-- HEADER -->
+  <div class="topbar">
+    <div class="left">
+      <a class="nav-btn" href="plataforma.html"><i class="fa-solid fa-arrow-left"></i> <span>Volver atras</span></a>
     </div>
-    <div class="title">Plataforma de Gestión Tributaria — Marcas Propias</div>
-    <div class="actions">
-      <button class="btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i><span>Volver</span></button>
-      <a class="btn dark" href="index.html"><i class="fa-solid fa-house"></i><span>Menú</span></a>
+    <div class="center">
+      <img src="assets/cencosud-logo.png" alt="Cencosud" />
+      <span>Contratos y Estudios - Marcas Propias</span>
     </div>
-  </header>
+    <div class="right">
+      <a class="nav-btn" href="index.html"><span>Volver al Menu Principal</span></a>
+    </div>
+  </div>
 
   <main class="wrap">
     <section class="card">
@@ -126,11 +116,9 @@
           <input id="cuenta" type="text" placeholder="Ej: 410101" />
           <div id="mensaje" class="msg"></div>
         </div>
-        <div class="cta">
-          <button class="btn" id="btn-filtrar"><i class="fa-solid fa-magnifying-glass"></i> EJECUTAR</button>
-          <button class="btn secondary" id="btn-reset"><i class="fa-solid fa-rotate-left"></i> RESTABLECER</button>
-          <button class="btn dark" id="btn-descargar"><i class="fa-solid fa-file-excel"></i> DESCARGAR</button>
-        </div>
+        <button class="btn" id="btn-filtrar"><i class="fa-solid fa-magnifying-glass"></i> EJECUTAR FILTRO</button>
+        <button class="btn secondary" id="btn-reset"><i class="fa-solid fa-rotate-left"></i> RESTABLECER</button>
+        <button class="btn dark" id="btn-descargar"><i class="fa-solid fa-file-excel"></i> DESCARGAR</button>
       </div>
 
       <div class="table-wrap">
@@ -144,7 +132,6 @@
 
     const CSV_MP = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT89jkEZINwneBaD4ZZC9RJfCh3gklGO_8n2cIDkUvr0vZW2bTqNi2wiVBqH3wgVrDfa3IWAZnj7LHd/pub?gid=0&single=true&output=csv';
 
-    // Mapeo con “Agrupación”
     const MAP_MP = {
       'Número de cuenta':'numero_cuenta','Numero de cuenta':'numero_cuenta','Cuenta':'numero_cuenta',
       'Agrupación':'agrupacion','Agrupacion':'agrupacion','Grupo':'agrupacion','Grupo contable':'agrupacion','Agrupación contable':'agrupacion','Agrupacion contable':'agrupacion',
@@ -154,13 +141,12 @@
     };
 
     const CFG = { csvUrl: CSV_MP, map: MAP_MP, tablaId: 'tabla-facturas', inputId: 'cuenta', mensajeId: 'mensaje' };
-
     document.getElementById('btn-filtrar').addEventListener('click', () => filtrarPorNumeroCuenta(CFG));
     document.getElementById('btn-reset').addEventListener('click', () => limpiarFiltro(CFG));
     document.getElementById('btn-descargar').addEventListener('click', () => descargarExcel('marcas-propias-filtradas.xlsx'));
-
     window.addEventListener('load', () => iniciarCuentasPorNumero(CFG));
   </script>
 </body>
 </html>
+
 
