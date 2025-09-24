@@ -1,105 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <title>Cuentas – Marcas Propias</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contratos y Estudios - Marcas Propias</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <style>
-    :root{
-      --header:#0b3b86; --header-600:#082f6c; --text:#0f172a; --muted:#334155;
-      --bg:#f5f7fb; --card:#ffffff; --border:#dbe3ef; --radius:12px; --btn-blue:#0b3b86;
-      --btn-font:14px;           /* tamaño letra botón (más chico) */
-      --btn-pad-y:8px;           /* padding vertical (más chico) */
-      --btn-pad-x:12px;          /* padding horizontal (más chico) */
-      --title-size:22px;         /* tamaño del título centrado */
-      --logo-h:34px;             /* alto del logo */
+    body{font-family:Arial, sans-serif; background:#f4f4f4; margin:0}
+    /* === HEADER idéntico al resto === */
+    .btn-volver{
+      background:#fff; color:#003087; font-weight:bold;
+      padding:6px 10px; border-radius:5px; font-size:14px; text-decoration:none;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
-
-    /* Topbar idéntica */
-    .topbar{background:var(--header);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:10px 16px;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-    .topbar .left,.topbar .right{display:flex;align-items:center;gap:10px}
-    .topbar .center{display:flex;align-items:center;gap:10px;justify-content:center;color:#fff;font-weight:800;font-size:var(--title-size)}
-    .topbar .center img{height:var(--logo-h);width:auto;display:block}
-
-    /* Botón blanco compacto con tipografía menor */
-    .nav-btn{
-      background:#fff;color:var(--header);
-      border:1px solid #fff;border-radius:8px;
-      padding:var(--btn-pad-y) var(--btn-pad-x);
-      font-weight:800;font-size:var(--btn-font);line-height:1;
-      text-decoration:none;display:inline-flex;align-items:center;gap:8px;
-      box-shadow:0 1px 0 rgba(255,255,255,.25) inset, 0 1px 3px rgba(2,6,23,.12);
+    header{
+      background:#003087; color:#fff; padding:10px 20px;
+      display:flex; justify-content:space-between; align-items:center; position:relative;
     }
-    .nav-btn i{font-size:14px}
-    .nav-btn:hover{filter:brightness(.96)}
-
-    .wrap{max-width:1200px;margin:20px auto;padding:0 16px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 2px 12px rgba(2,6,23,.05);padding:16px}
-
-    .toolbar{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:end}
-    label{font-size:12px;color:var(--muted);font-weight:700}
-    input[type="text"]{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:#fff}
-    input[type="text"]:focus{outline:none;border-color:var(--header)}
-    .btn{
-      appearance:none;border:0;border-radius:8px;cursor:pointer;
-      padding:var(--btn-pad-y) var(--btn-pad-x);font-weight:800;font-size:14px;color:#fff;background:var(--btn-blue);
-    }
-    .btn:hover{background:var(--header-600)}
+    /* === Contenido === */
+    .contenedor{max-width:1200px; margin:1rem auto 2rem; background:#fff; border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:20px; overflow-x:auto}
+    .barra{display:grid; grid-template-columns:1fr auto auto auto; gap:12px; align-items:end}
+    label{font-size:12px; color:#334155; font-weight:bold}
+    input[type="text"]{padding:10px 12px; border:1px solid #dfe4ea; border-radius:10px; font-size:14px; width:100%}
+    input[type="text"]:focus{outline:none; border-color:#003087}
+    .btn{background:#003087; color:#fff; border:none; border-radius:8px; font-weight:bold; padding:8px 12px; cursor:pointer}
+    .btn:hover{background:#0052cc}
     .btn.secondary{background:#0f766e}
     .btn.dark{background:#475569}
-
-    .table-wrap{margin-top:14px;border:1px solid var(--border);border-radius:12px;overflow:auto;background:#fff}
-    table{width:100%;border-collapse:collapse}
-    thead th{position:sticky;top:0;background:#eef2ff;color:#1f2937;text-align:left;font-size:12px;padding:10px;border-bottom:1px solid var(--border)}
-    tbody td{padding:10px;border-bottom:1px solid #f1f5f9;font-size:13px}
-    tbody tr:hover{background:#f8fafc}
-    .msg{min-height:18px;font-size:13px;margin-top:6px;visibility:hidden}
-
-    @media (max-width:720px){ .toolbar{grid-template-columns:1fr} }
+    .msg{min-height:18px; font-size:13px; margin-top:6px; visibility:hidden}
+    table{width:100%; border-collapse:collapse; margin-top:16px}
+    th,td{border:1px solid #ddd; padding:8px 12px; text-align:left; white-space:nowrap; font-size:14px}
+    thead th{background:#eef2ff; color:#1f2937}
+    tr{line-height:1.5}
+    tr:hover{background:#f8fafc}
   </style>
-
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="left">
-      <a class="nav-btn" href="cuentas_para_calculo_mp_y_expclientes"><i class="fa-solid fa-arrow-left"></i><span>Volver atras</span></a>
+  <!-- HEADER -->
+  <header>
+    <!-- Izquierda -->
+    <a href="cuentas_para_calculo_MP_y_expclientes.html" class="btn-volver">
+      <i class="fas fa-arrow-left"></i> Volver atras
+    </a>
+
+    <!-- Centro: logo + título -->
+    <div style="position:absolute; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:10px;">
+      <img src="cencosud-logo.png" alt="Logo" style="height:40px;">
+      <h1 style="margin:0; font-size:24px;">Contratos y Estudios - Marcas Propias</h1>
     </div>
-    <div class="center">
-      <img src="assets/cencosud-logo.png" alt="Cencosud" />
-      <span>Contratos y Estudios - Marcas Propias</span>
+
+    <!-- Derecha (espacio para balancear) -->
+    <div style="width:170px;">
+      <a href="plataforma.html" class="btn-volver">Volver al Menu Principal</a>
     </div>
-    <div class="right">
-      <a class="nav-btn" href="plataforma.html"><span>Volver al Menu Principal</span></a>
+  </header>
+
+  <div class="contenedor">
+    <div class="barra">
+      <div>
+        <label for="cuenta">N° de cuenta</label>
+        <input id="cuenta" type="text" placeholder="Ej: 410101" />
+        <div id="mensaje" class="msg"></div>
+      </div>
+      <button class="btn" id="btn-filtrar"><i class="fa-solid fa-magnifying-glass"></i> EJECUTAR FILTRO</button>
+      <button class="btn secondary" id="btn-reset"><i class="fa-solid fa-rotate-left"></i> RESTABLECER</button>
+      <button class="btn dark" id="btn-descargar"><i class="fa-solid fa-file-excel"></i> DESCARGAR</button>
     </div>
+
+    <table id="tabla-facturas"></table>
   </div>
-
-  <main class="wrap">
-    <section class="card">
-      <div class="toolbar">
-        <div>
-          <label for="cuenta">N° de cuenta</label>
-          <input id="cuenta" type="text" placeholder="Ej: 410101" />
-          <div id="mensaje" class="msg"></div>
-        </div>
-        <button class="btn" id="btn-filtrar"><i class="fa-solid fa-magnifying-glass"></i> EJECUTAR FILTRO</button>
-        <button class="btn secondary" id="btn-reset"><i class="fa-solid fa-rotate-left"></i> RESTABLECER</button>
-        <button class="btn dark" id="btn-descargar"><i class="fa-solid fa-file-excel"></i> DESCARGAR</button>
-      </div>
-
-      <div class="table-wrap">
-        <table id="tabla-facturas"></table>
-      </div>
-    </section>
-  </main>
 
   <script type="module">
     import { iniciarCuentasPorNumero, filtrarPorNumeroCuenta, limpiarFiltro, descargarExcel } from './script-cuentas-por-numero.js';
+
     const CSV_MP = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT89jkEZINwneBaD4ZZC9RJfCh3gklGO_8n2cIDkUvr0vZW2bTqNi2wiVBqH3wgVrDfa3IWAZnj7LHd/pub?gid=0&single=true&output=csv';
     const MAP_MP = {
       'Número de cuenta':'numero_cuenta','Numero de cuenta':'numero_cuenta','Cuenta':'numero_cuenta',
@@ -108,7 +84,8 @@
       'Monto CLP':'monto','Monto':'monto',
       'Es Marca Propia':'es_marca_propia','Línea Marca':'linea_marca','Linea Marca':'linea_marca','Categoria':'categoria_marca','Categoría':'categoria_marca'
     };
-    const CFG = { csvUrl: CSV_MP, map: MAP_MP, tablaId: 'tabla-facturas', inputId: 'cuenta', mensajeId: 'mensaje' };
+
+    const CFG = { csvUrl: CSV_MP, map: MAP_MP, tablaId:'tabla-facturas', inputId:'cuenta', mensajeId:'mensaje' };
     document.getElementById('btn-filtrar').addEventListener('click', () => filtrarPorNumeroCuenta(CFG));
     document.getElementById('btn-reset').addEventListener('click', () => limpiarFiltro(CFG));
     document.getElementById('btn-descargar').addEventListener('click', () => descargarExcel('marcas-propias-filtradas.xlsx'));
@@ -116,3 +93,4 @@
   </script>
 </body>
 </html>
+
